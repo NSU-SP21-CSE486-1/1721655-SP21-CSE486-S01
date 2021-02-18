@@ -1,8 +1,14 @@
-# 1234567_FA2020_CSE486.1
-Sample Repository for all work in CSE486.1
-Clone this repository, rename it, make it private, create folder structure.
+#1721655_SP21_CSE486-S01
 
-How to create your repository?
+Owner : Abdullah Al Sayem
+I.D. : 1721655642
+Organization : NSU-SP21-CSE486-1
+Repository : 1721655-SP21-CSE486-S01
+
+
+
+
+<!-- How to create your repository?
 
 <7 Digit Student ID>_FA2020_CSE486.1
 
@@ -13,21 +19,17 @@ Folder Structure:
 1911231_FA2020_CSE486.1
 
   |-------- Assignments
-  
+
               |------------- Assignment 1
-              
+
               |------------- Assignment 2
-              
+
               |------------- Assignment 3
-              
+
               |------------- Assignment 4
-              
+
   |-------- Android Project
-  
+
               |------------- README.md
-              
-              |------------- Project Code
-              
-                              
-  
-              
+
+              |------------- Project Code -->
