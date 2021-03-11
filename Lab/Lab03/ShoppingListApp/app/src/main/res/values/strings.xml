@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">ShoppingListApp</string>
+    <string name="add_item_button">Add Item</string>
+    <string name="item_1">Coffe</string>
+    <string name="item_2">Apples</string>
+    <string name="item_3">Oranges</string>
+    <string name="item_4">Salt</string>
+    <string name="item_5">Sugar</string>
+    <string name="item_6">Oil</string>
+    <string name="item_7">Vinegar</string>
+    <string name="item_8">Cheese</string>
+    <string name="item_9">Rice</string>
+    <string name="item_10">Bread</string>
+    <string name="item_11">Butter</string>
+    <string name="locate_button">Locate</string>
+    <string name="locate_edit_text">Search....</string>
+
+
+
+</resources>
