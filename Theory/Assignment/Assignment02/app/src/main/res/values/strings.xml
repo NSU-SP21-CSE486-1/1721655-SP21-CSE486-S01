@@ -1,3 +1,44 @@
 <resources>
     <string name="app_name">Student Signup App</string>
+    <string name="student_name">Student Name</string>
+    <string name="student_name_edittext">NSU ID Name</string>
+    <string name="student_id">Student ID</string>
+    <string name="student_id_edittext">7 Digit Student ID</string>
+    <string name="school_name">School</string>
+    <string name="department_name">Department</string>
+
+    <string-array name="school_names">
+        <item>School of Business &amp; Economics</item>
+        <item>School of Engineering &amp; Physical Sciences</item>
+        <item>School of Humanities &amp; Social Sciences</item>
+        <item>School of Health &amp; Life Sciences</item>
+    </string-array>
+
+    <string-array name="sbe_department_spinner">
+        <item>Department of Accounting &amp; Finance</item>
+        <item>Department of Economics</item>
+        <item>Department of Management</item>
+        <item>Department of Marketing &amp; International Business</item>
+    </string-array>
+
+    <string-array name="sep_department_spinner">
+        <item>Department of Architecture</item>
+        <item>Department of Civil &amp; Environmental Engineering</item>
+        <item>Department of Electrical &amp; Computer Engineering</item>
+        <item>Department of Mathematics &amp; Physics</item>
+    </string-array>
+
+    <string-array name="shs_department_spinner">
+        <item>Department of English &amp; Modern Languages</item>
+        <item>Department of Political Science &amp; Sociology</item>
+        <item>Department of Law</item>
+        <item>Department of History &amp; Philosophy </item>
+    </string-array>
+
+    <string-array name="shl_department_spinner">
+        <item>Department of Biochemistry and Microbiology</item>
+        <item>Department of Environmental Science and Management</item>
+        <item>Department of Pharmaceutical Sciences</item>
+        <item>Department of Public Health</item>
+    </string-array>
 </resources>
