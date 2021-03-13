@@ -36,8 +36,8 @@
     </string-array>
 
     <string-array name="shl_department_spinner">
-        <item>Department of Biochemistry and Microbiology</item>
-        <item>Department of Environmental Science and Management</item>
+        <item>Department of Biochemistry &amp; Microbiology</item>
+        <item>Department of Environmental Science &amp; Management</item>
         <item>Department of Pharmaceutical Sciences</item>
         <item>Department of Public Health</item>
     </string-array>

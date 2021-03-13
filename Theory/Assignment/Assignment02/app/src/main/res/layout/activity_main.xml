@@ -76,14 +76,13 @@
         android:id="@+id/school_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:entries="@array/school_names"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:gravity="center"
         android:spinnerMode="dropdown"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/student_id_edittext"
-        app:layout_constraintStart_toStartOf="@+id/student_id_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/school_name" />
 
     <TextView
@@ -97,17 +96,20 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/school_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/school_spinner"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <Spinner
         android:id="@+id/department_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:gravity="center"
         android:spinnerMode="dropdown"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/school_spinner"
-        app:layout_constraintStart_toStartOf="@+id/school_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/department_name" />
 
 
