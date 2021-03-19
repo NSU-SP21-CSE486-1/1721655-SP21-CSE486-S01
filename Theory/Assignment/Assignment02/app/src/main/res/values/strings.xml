@@ -10,6 +10,8 @@
     <string name="phone_number">Phone Number</string>
     <string name="nid_number">NID Number</string>
     <string name="nid_no_10_digits">NID no. (10 Digits)</string>
+    <string name="button_next">Next</string>
+    <string name="button_submit">Submit</string>
 
     <string-array name="school_names">
         <item>School of Business &amp; Economics</item>
