@@ -4,9 +4,11 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private CountryCodePicker ccp;
     private Button submit,next;
 
+    public static final String EXTRA_MESSAGE = "com.example.android.studentsignupapp.extra.MESSAGE";
+    public static final int TEXT_REQUEST = 1;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -106,12 +110,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,shsDepartments);
             arrayAdapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             departmentSpinner.setAdapter(arrayAdapterDepartments);
-
         }
     }
     //----------------------------------------------END---------------------------------------------
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
+
+
+    //---------------------------------CODE FOR ADDRESS ACTIVITY------------------------------------
+    public void launchSecondActivity(View view) {
+        Intent addressIntent = new Intent(this, Address.class);
+        startActivityForResult(addressIntent, TEXT_REQUEST);
+    }
+    //-------------------------------------------END------------------------------------------------
 }
