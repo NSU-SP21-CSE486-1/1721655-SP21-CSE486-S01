@@ -1,10 +1,8 @@
 package com.example.studentsignupapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -53,6 +51,32 @@ public class Address extends AppCompatActivity {
         mPermRBS = findViewById(R.id.rbs_editText_2);
         //---------------------------------------END------------------------------------------------
 
+
+
+        //------------------------CODE FOR SETTING SAVED INSTANCE-----------------------------------
+        if (savedInstanceState != null) {
+            //----------------------------PRESENT ADDRESS-------------------------------------------
+            mPresCountry.setText(savedInstanceState.getString("reply_text1"));
+            mPresDistrict.setText(savedInstanceState.getString("reply_text2"));
+            mPresPostOffice.setText(savedInstanceState.getString("reply_text3"));
+            mPresPoliceStation.setText(savedInstanceState.getString("reply_text4"));
+            mPresPostalCode.setText(savedInstanceState.getString("reply_text5"));
+            mPresHVC.setText(savedInstanceState.getString("reply_text6"));
+            mPresRBS.setText(savedInstanceState.getString("reply_text7"));
+            //---------------------------------END--------------------------------------------------
+
+            //----------------------------PERMANENT ADDRESS-----------------------------------------
+            mPermCountry.setText(savedInstanceState.getString("reply_text8"));
+            mPermDistrict.setText(savedInstanceState.getString("reply_text9"));
+            mPermPostOffice.setText(savedInstanceState.getString("reply_text10"));
+            mPermPoliceStation.setText(savedInstanceState.getString("reply_text11"));
+            mPermPostalCode.setText(savedInstanceState.getString("reply_text12"));
+            mPermHVC.setText(savedInstanceState.getString("reply_text13"));
+            mPermRBS.setText(savedInstanceState.getString("reply_text14"));
+            //------------------------------------END-----------------------------------------------
+        }
+        //---------------------------------------END------------------------------------------------
+
     }
 
 
@@ -92,11 +116,11 @@ public class Address extends AppCompatActivity {
         String reply14 = mPermRBS.getText().toString();
         replyIntent.putExtra(EXTRA_REPLY_14, reply14);
         //---------------------------------------END------------------------------------------------
-
         setResult(RESULT_OK,replyIntent);
         finish();
     }
     //--------------------------------------------END-----------------------------------------------
+
 
 
     //----------------------------------CODE FOR SAVED INSTANCE-------------------------------------

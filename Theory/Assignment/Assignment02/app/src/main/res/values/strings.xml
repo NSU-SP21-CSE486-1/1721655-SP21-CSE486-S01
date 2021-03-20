@@ -12,6 +12,23 @@
     <string name="nid_no_10_digits">NID no. (10 Digits)</string>
     <string name="button_next">Next</string>
     <string name="button_submit">Submit</string>
+    <string name="present_address">Present Address</string>
+    <string name="country_name">Country Name</string>
+    <string name="district_name">District</string>
+    <string name="post_office_name">Post Office</string>
+    <string name="police_station_name">Police Station</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="hvc_name">House/Village/City</string>
+    <string name="rbs_name">Road/Block/Sector</string>
+    <string name="permanent_address">Permanent Address</string>
+    <string name="country_name_2">Country Name</string>
+    <string name="district_name_2">District</string>
+    <string name="post_office_2">Post Office</string>
+    <string name="police_station_2">Police Station</string>
+    <string name="postal_code_2">Postal Code</string>
+    <string name="hvc_name_2">House/Village/City</string>
+    <string name="rbs_name_2">Road/Block/Sector</string>
+    <string name="back_button">Back</string>
 
     <string-array name="school_names">
         <item>School of Business &amp; Economics</item>
