@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Spinner departmentSpinner ;
     private ArrayAdapter<String> arrayAdapterDepartments;
     private ArrayAdapter<String> arrayAdapterSchool;
-    private EditText dateOfBirth,phoneNumber;
+    private EditText dateOfBirth,phoneNumber,NID;
+    private String strSchool,strDepartment,strDoB,strPhoneNumber,strNID;
     private CountryCodePicker ccp;
     private Button submit,next;
 
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         arrayAdapterSchool =  new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,school);
         arrayAdapterSchool.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         schoolSpinner.setAdapter(arrayAdapterSchool);
+        strSchool = arrayAdapterSchool.toString();
         //-------------------------------------END--------------------------------------------------
 
         //--------------------------------CODE FOR DATE OF BIRTH------------------------------------
@@ -71,16 +73,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 },year,month,day);
                 datePicker.show();
+                strDoB = datePicker.toString();
             }
+
         });
-        //---------------------------------------------END------------------------------------------
+        //------------------------------------------END---------------------------------------------
 
         //---------------------------------CODE FOR PHONE NUMBER------------------------------------
         ccp = (CountryCodePicker) findViewById(R.id.picker);
         phoneNumber = (EditText) findViewById(R.id.phone_number_editText);
+        strPhoneNumber = ccp.toString() + phoneNumber.toString();
         //-----------------------------------------END----------------------------------------------
 
+        //---------------------------------CODE FOR NID NUMBER--------------------------------------
+        NID = findViewById(R.id.nid_number_editText);
+        strNID = NID.toString();
+        //------------------------------------------END---------------------------------------------
     }
+
+
     //---------------------------------SPINNER CODE FOR DEPARTMENTS---------------------------------
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -89,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,sbeDepartments);
             arrayAdapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             departmentSpinner.setAdapter(arrayAdapterDepartments);
-
         }else
         if(position == 1){
             final String[] sepDepartments = getResources().getStringArray(R.array.sep_department_spinner);
@@ -111,17 +121,53 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             arrayAdapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             departmentSpinner.setAdapter(arrayAdapterDepartments);
         }
+
+        strDepartment = arrayAdapterDepartments.toString();
     }
-    //----------------------------------------------END---------------------------------------------
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
+    //----------------------------------------------END---------------------------------------------
 
 
-    //---------------------------------CODE FOR ADDRESS ACTIVITY------------------------------------
+
+    //-------------------------------CODE TO START ADDRESS ACTIVITY---------------------------------
     public void launchSecondActivity(View view) {
         Intent addressIntent = new Intent(this, Address.class);
         startActivityForResult(addressIntent, TEXT_REQUEST);
+    }
+    //-------------------------------------------END------------------------------------------------
+
+
+
+    //--------------------------------CODE FOR INTENT RESULT----------------------------------------
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == TEXT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                //----------------------------------PRESENT ADDRESS---------------------------------
+                String reply1 = data.getStringExtra(Address.EXTRA_REPLY_1);
+                String reply2 = data.getStringExtra(Address.EXTRA_REPLY_2);
+                String reply3 = data.getStringExtra(Address.EXTRA_REPLY_3);
+                String reply4 = data.getStringExtra(Address.EXTRA_REPLY_4);
+                String reply5 = data.getStringExtra(Address.EXTRA_REPLY_5);
+                String reply6 = data.getStringExtra(Address.EXTRA_REPLY_6);
+                String reply7 = data.getStringExtra(Address.EXTRA_REPLY_7);
+                //---------------------------------------END----------------------------------------
+
+                //-----------------------------------PERMANENT ADDRESS------------------------------
+                String reply8 = data.getStringExtra(Address.EXTRA_REPLY_8);
+                String reply9 = data.getStringExtra(Address.EXTRA_REPLY_9);
+                String reply10 = data.getStringExtra(Address.EXTRA_REPLY_10);
+                String reply11 = data.getStringExtra(Address.EXTRA_REPLY_11);
+                String reply12 = data.getStringExtra(Address.EXTRA_REPLY_12);
+                String reply13 = data.getStringExtra(Address.EXTRA_REPLY_13);
+                String reply14 = data.getStringExtra(Address.EXTRA_REPLY_14);
+                //---------------------------------------END----------------------------------------
+            }
+        }
     }
     //-------------------------------------------END------------------------------------------------
 }
