@@ -29,6 +29,9 @@
     <string name="hvc_name_2">House/Village/City</string>
     <string name="rbs_name_2">Road/Block/Sector</string>
     <string name="back_button">Back</string>
+    <string name="button_search">Search</string>
+    <string name="button_student_list">Student List</string>
+    <string name="save_data">Student Information Saved</string>
 
     <string-array name="school_names">
         <item>School of Business &amp; Economics</item>
@@ -64,4 +67,6 @@
         <item>Department of Pharmaceutical Sciences</item>
         <item>Department of Public Health</item>
     </string-array>
+
+
 </resources>
