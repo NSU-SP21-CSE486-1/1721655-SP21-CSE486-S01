@@ -14,5 +14,19 @@ public abstract class StudentDatabase extends RoomDatabase {
     public abstract StudentDao getDao();
     private static StudentDatabase instance;
 
+    static StudentDatabase getDatabase(final Context context){
+
+        if(instance == null ){
+            synchronized (StudentDatabase.class){
+                instance = Room.databaseBuilder(context,StudentDatabase.class,"database-name").build();
+            }
+        }
+     return instance;
+    }
+
+
+
+
+
 
 }

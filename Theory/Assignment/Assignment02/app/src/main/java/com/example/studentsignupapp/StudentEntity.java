@@ -31,8 +31,10 @@ public class StudentEntity {
     @ColumnInfo(name = "nid")
     private String nid;
 
+
+
     @ColumnInfo(name = "pres_country")
-    private String presCountry;
+    private String pres_country;
 
     @ColumnInfo(name = "pres_district")
     private String pres_district;
@@ -52,8 +54,10 @@ public class StudentEntity {
     @ColumnInfo(name = "pres_rbs")
     private String pres_rbs;
 
+
+
     @ColumnInfo(name = "perm_country")
-    private String permCountry;
+    private String perm_country;
 
     @ColumnInfo(name = "perm_district")
     private String perm_district;
@@ -130,12 +134,12 @@ public class StudentEntity {
         this.nid = nid;
     }
 
-    public String getPresCountry() {
-        return presCountry;
+    public String getPres_country() {
+        return pres_country;
     }
 
-    public void setPresCountry(String presCountry) {
-        this.presCountry = presCountry;
+    public void setPres_country(String pres_country) {
+        this.pres_country = pres_country;
     }
 
     public String getPres_district() {
@@ -186,12 +190,12 @@ public class StudentEntity {
         this.pres_rbs = pres_rbs;
     }
 
-    public String getPermCountry() {
-        return permCountry;
+    public String getPerm_country() {
+        return perm_country;
     }
 
-    public void setPermCountry(String permCountry) {
-        this.permCountry = permCountry;
+    public void setPerm_country(String perm_country) {
+        this.perm_country = perm_country;
     }
 
     public String getPerm_district() {

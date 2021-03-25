@@ -7,6 +7,7 @@ import androidx.room.Room;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +18,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hbb20.CountryCodePicker;
 
 import java.util.Date;
 
@@ -33,10 +34,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private String strStudentName,strStudentId,strSchool,strDepartment,strDoB,strPhoneNumber,strNID;
     private String mPresCountry,mPresDistrict,mPresPostOffice,mPresPoliceStation,mPresPostalCode,mPresHVC,mPresRBS;
     private String mPermCountry,mPermDistrict,mPermPostOffice,mPermPoliceStation,mPermPostalCode,mPermHVC,mPermRBS;
-    private CountryCodePicker ccp;
     private Button submit,next;
+    private TextView cc;
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    public static final String EXTRA_DATA = "com.example.android.studentsignupapp.extra.DATA";
+    //public static final String EXTRA_DATA = "com.example.android.studentsignupapp.extra.DATA";
     public static final int TEXT_REQUEST = 1;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -72,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         arrayAdapterSchool =  new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,school);
         arrayAdapterSchool.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         schoolSpinner.setAdapter(arrayAdapterSchool);
-        strSchool =  schoolSpinner.getSelectedItem().toString();
         //-------------------------------------END--------------------------------------------------
 
         //--------------------------------CODE FOR DATE OF BIRTH------------------------------------
@@ -101,21 +102,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //------------------------------------------END---------------------------------------------
 
         //---------------------------------CODE FOR PHONE NUMBER------------------------------------
-        ccp = (CountryCodePicker) findViewById(R.id.picker);
+        cc = (TextView) findViewById(R.id.country_code);
         phoneNumber = (EditText) findViewById(R.id.phone_number_editText);
-        strPhoneNumber = ccp.getDefaultCountryCode() + phoneNumber.getText().toString();
+        strPhoneNumber = cc.getText().toString() + phoneNumber.getText().toString();
         //-----------------------------------------END----------------------------------------------
 
         //---------------------------------CODE FOR NID NUMBER--------------------------------------
         NID = findViewById(R.id.nid_number_editText);
         strNID = NID.getText().toString();
         //------------------------------------------END---------------------------------------------
+        StudentDatabase db = StudentDatabase.getDatabase(this);
+        StudentDao studentDao = db.getDao();
     }
 
 
-    //---------------------------------SPINNER CODE FOR DEPARTMENTS---------------------------------
+
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        strSchool =  schoolSpinner.getSelectedItem().toString();
+
+        //---------------------------------SPINNER CODE FOR DEPARTMENTS-----------------------------
         if(position == 0){
             final String[] sbeDepartments = getResources().getStringArray(R.array.sbe_department_spinner);
             arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,sbeDepartments);
@@ -144,12 +152,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
         strDepartment = departmentSpinner.getSelectedItem().toString();
+        //----------------------------------------------END-----------------------------------------
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
-    //----------------------------------------------END---------------------------------------------
+
 
 
 
@@ -192,43 +201,61 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
     //-------------------------------------------END------------------------------------------------
 
-    private void saveData(){
-
-        StudentEntity student = new StudentEntity();
-
-        student.setStudent_name(strStudentName);
-        student.setStudent_id(strStudentId);
-        student.setSchool(strSchool);
-        student.setDepartment(strDepartment);
-        student.setDob(strDoB);
-        student.setPhone(strPhoneNumber);
-        student.setNid(strNID);
-
-        student.setPresCountry(mPresCountry);
-        student.setPres_district(mPresDistrict);
-        student.setPres_post_office(mPresPostOffice);
-        student.setPres_police_station(mPresPoliceStation);
-        student.setPres_postal_code(mPresPostalCode);
-        student.setPres_hvc(mPresHVC);
-        student.setPres_rbs(mPresRBS);
-
-        student.setPermCountry(mPermCountry);
-        student.setPerm_district(mPermDistrict);
-        student.setPerm_post_office(mPermPostOffice);
-        student.setPerm_police_station(mPermPoliceStation);
-        student.setPerm_postal_code(mPermPostalCode);
-        student.setPerm_hvc(mPermHVC);
-        student.setPerm_rbs(mPermRBS);
 
 
-        StudentDatabase db = Room.databaseBuilder(this,
-                StudentDatabase.class, "database-name").build();
-        db.getDao().insertAll(student);
-        Toast.makeText(this,R.string.save_data,Toast.LENGTH_LONG).show();
+    private void saveData (){
+        SaveData save = new SaveData();
+        save.execute();
 
 
     }
 
+    class SaveData extends AsyncTask<Void,Void,Void>{
 
+        @Override
+        protected Void doInBackground(Void... voids) {
+            StudentEntity student = new StudentEntity();
+
+            student.setStudent_name(strStudentName);
+            student.setStudent_id(strStudentId);
+            student.setSchool(strSchool);
+            student.setDepartment(strDepartment);
+            student.setDob(strDoB);
+            student.setPhone(strPhoneNumber);
+            student.setNid(strNID);
+
+            student.setPres_country(mPresCountry);
+            student.setPres_district(mPresDistrict);
+            student.setPres_post_office(mPresPostOffice);
+            student.setPres_police_station(mPresPoliceStation);
+            student.setPres_postal_code(mPresPostalCode);
+            student.setPres_hvc(mPresHVC);
+            student.setPres_rbs(mPresRBS);
+
+            student.setPerm_country(mPermCountry);
+            student.setPerm_district(mPermDistrict);
+            student.setPerm_post_office(mPermPostOffice);
+            student.setPerm_police_station(mPermPoliceStation);
+            student.setPerm_postal_code(mPermPostalCode);
+            student.setPerm_hvc(mPermHVC);
+            student.setPerm_rbs(mPermRBS);
+
+            Log.d(LOG_TAG, "DATABASE VALUE SET!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+            StudentDatabase.getDatabase(getApplicationContext()).getDao().insert(student);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(getApplicationContext(),R.string.save_data,Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void starStudentList(View view){
+        Intent studentListIntent = new Intent(this,StudentList.class);
+        startActivity(studentListIntent);
+    }
 
 }

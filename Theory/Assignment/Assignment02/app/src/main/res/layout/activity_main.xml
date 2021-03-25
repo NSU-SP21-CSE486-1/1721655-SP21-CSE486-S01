@@ -163,16 +163,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phone_number" />
 
-    <com.hbb20.CountryCodePicker
-        android:id="@+id/picker"
-        android:layout_width="137dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="32dp"
-        app:ccp_defaultNameCode="BD"
-        app:layout_constraintEnd_toStartOf="@+id/phone_number_editText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_number" />
-
     <TextView
         android:id="@+id/nid_number"
         android:layout_width="wrap_content"
@@ -240,10 +230,24 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:onClick="starStudentList"
         android:text="@string/button_student_list"
         app:layout_constraintEnd_toStartOf="@+id/button_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nid_number_editText" />
+
+    <TextView
+        android:id="@+id/country_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/country_code"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/phone_number_editText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_number" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
