@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Login App</string>
+    <string name="email_editText_hint">Enter Email</string>
+    <string name="password_textView">Password</string>
+    <string name="password_editText_hint">Enter Password</string>
+    <string name="button_login_text">Log In</string>
+    <string name="success_text">You Have Successfully Logged In.</string>
+    <string name="email_textView_text">Email</string>
+    <string name="welcome_textView_text">WELCOME</string>
+</resources>
