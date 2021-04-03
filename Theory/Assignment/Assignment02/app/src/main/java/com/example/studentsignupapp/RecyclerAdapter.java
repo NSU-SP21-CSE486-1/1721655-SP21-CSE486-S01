@@ -23,6 +23,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Studen
 
     }
 
+
     @NonNull
     @Override
     public StudentListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,8 +35,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Studen
     @Override
     public void onBindViewHolder(@NonNull StudentListHolder holder, int position) {
         if(studentList != null){
-           StudentEntity students = studentList.get(position);
-           holder.setData(students.getStudent_id(),position);
+            StudentEntity students = studentList.get(position);
+            holder.setData(students.getStudent_id(),position);
+        }else{
+            holder.listItem.setText(R.string.no_item);
         }
 
     }
@@ -43,15 +46,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Studen
     @Override
     public int getItemCount() {
         if(studentList != null ){
-          return studentList.size();
+            return studentList.size();
         }
         else  return 0;
+    }
+
+    public void setStudentList(List<StudentEntity> students){
+        studentList = students;
+        notifyDataSetChanged();
     }
 
     public class StudentListHolder extends RecyclerView.ViewHolder{
         private TextView listItem;
         private int  itemPosition;
-        public StudentListHolder(@NonNull View itemView) {
+
+        public StudentListHolder(View itemView) {
             super(itemView);
             listItem = itemView.findViewById(R.id.list_textView);
         }
@@ -63,8 +72,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Studen
         }
     }
 
-    public void setStudentList(List<StudentEntity> students){
-        studentList = students;
-        notifyDataSetChanged();
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

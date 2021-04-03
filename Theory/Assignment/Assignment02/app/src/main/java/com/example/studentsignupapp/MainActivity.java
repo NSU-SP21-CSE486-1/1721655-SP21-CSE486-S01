@@ -204,54 +204,40 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     private void saveData (){
-        SaveData save = new SaveData();
-        save.execute();
+        StudentEntity student = new StudentEntity();
+
+        student.setStudent_name(strStudentName);
+        student.setStudent_id(strStudentId);
+        student.setSchool(strSchool);
+        student.setDepartment(strDepartment);
+        student.setDob(strDoB);
+        student.setPhone(strPhoneNumber);
+        student.setNid(strNID);
+
+        student.setPres_country(mPresCountry);
+        student.setPres_district(mPresDistrict);
+        student.setPres_post_office(mPresPostOffice);
+        student.setPres_police_station(mPresPoliceStation);
+        student.setPres_postal_code(mPresPostalCode);
+        student.setPres_hvc(mPresHVC);
+        student.setPres_rbs(mPresRBS);
+
+        student.setPerm_country(mPermCountry);
+        student.setPerm_district(mPermDistrict);
+        student.setPerm_post_office(mPermPostOffice);
+        student.setPerm_police_station(mPermPoliceStation);
+        student.setPerm_postal_code(mPermPostalCode);
+        student.setPerm_hvc(mPermHVC);
+        student.setPerm_rbs(mPermRBS);
+
+        Log.d(LOG_TAG, "DATABASE VALUE SET!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        StudentDatabase.getDatabase(this).getDao().insert(student);
+        Toast.makeText(this,R.string.save_data,Toast.LENGTH_LONG).show();
 
 
     }
 
-    class SaveData extends AsyncTask<Void,Void,Void>{
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            StudentEntity student = new StudentEntity();
-
-            student.setStudent_name(strStudentName);
-            student.setStudent_id(strStudentId);
-            student.setSchool(strSchool);
-            student.setDepartment(strDepartment);
-            student.setDob(strDoB);
-            student.setPhone(strPhoneNumber);
-            student.setNid(strNID);
-
-            student.setPres_country(mPresCountry);
-            student.setPres_district(mPresDistrict);
-            student.setPres_post_office(mPresPostOffice);
-            student.setPres_police_station(mPresPoliceStation);
-            student.setPres_postal_code(mPresPostalCode);
-            student.setPres_hvc(mPresHVC);
-            student.setPres_rbs(mPresRBS);
-
-            student.setPerm_country(mPermCountry);
-            student.setPerm_district(mPermDistrict);
-            student.setPerm_post_office(mPermPostOffice);
-            student.setPerm_police_station(mPermPoliceStation);
-            student.setPerm_postal_code(mPermPostalCode);
-            student.setPerm_hvc(mPermHVC);
-            student.setPerm_rbs(mPermRBS);
-
-            Log.d(LOG_TAG, "DATABASE VALUE SET!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-            StudentDatabase.getDatabase(getApplicationContext()).getDao().insert(student);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Toast.makeText(getApplicationContext(),R.string.save_data,Toast.LENGTH_LONG).show();
-        }
-    }
 
     public void starStudentList(View view){
         Intent studentListIntent = new Intent(this,StudentList.class);

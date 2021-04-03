@@ -1,5 +1,6 @@
 package com.example.studentsignupapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -13,22 +14,27 @@ import java.util.List;
 public class StudentList extends AppCompatActivity {
     private RecyclerAdapter recyclerAdapter ;
     private StudentDao studentDao;
+    private StudentDatabase studentDB;
     private LiveData<List<StudentEntity>> allStudent;
-
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_list);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerAdapter = new RecyclerAdapter(this);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        studentDB = StudentDatabase.getDatabase(this);
+        studentDao = studentDB.getDao();
         allStudent = studentDao.getALL();
+
         allStudent.observe(this, new Observer<List<StudentEntity>>() {
             @Override
-            public void onChanged(List<StudentEntity> studentEntities) {
+            public void onChanged(@Nullable List<StudentEntity> studentEntities) {
                 recyclerAdapter.setStudentList(studentEntities);
             }
         });
