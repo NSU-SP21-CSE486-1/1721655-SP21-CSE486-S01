@@ -2,8 +2,6 @@ package com.example.studentsignupapp;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
@@ -21,8 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -48,23 +44,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         //----------------------------CODE FOR STUDENT NAME & ID------------------------------------
-        studentName = findViewById(R.id.student_name_editText);
-        strStudentName = studentName.getText().toString();
-        studentID = findViewById(R.id.student_id_editText);
-        strStudentId = studentID.getText().toString();
+        studentName = (EditText) findViewById(R.id.student_name_editText);
+        studentID = (EditText) findViewById(R.id.student_id_editText);
         //----------------------------------------END-----------------------------------------------
-
-
-        //--------------------------------CODE FOR BUTTONS------------------------------------------
-        submit = (Button)findViewById(R.id.button_submit);
-        submit.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                saveData();
-            }
-        });
-        next = (Button)findViewById(R.id.button_next);
-        //-------------------------------------END--------------------------------------------------
 
         //------------------------------SPINNER CODE FOR SCHOOL-------------------------------------
         schoolSpinner = (Spinner) findViewById(R.id.school_spinner);
@@ -91,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month = month + 1;
                         String date = dayOfMonth + "/" + month + "/" + year;
+                        strDoB = date;
                         dateOfBirth.setText(date);
                     }
                 },year,month,day);
@@ -98,21 +81,34 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
 
         });
-        strDoB =  dateOfBirth.getText().toString();
+
         //------------------------------------------END---------------------------------------------
 
         //---------------------------------CODE FOR PHONE NUMBER------------------------------------
         cc = (TextView) findViewById(R.id.country_code);
         phoneNumber = (EditText) findViewById(R.id.phone_number_editText);
-        strPhoneNumber = cc.getText().toString() + phoneNumber.getText().toString();
         //-----------------------------------------END----------------------------------------------
 
         //---------------------------------CODE FOR NID NUMBER--------------------------------------
-        NID = findViewById(R.id.nid_number_editText);
-        strNID = NID.getText().toString();
+        NID = (EditText) findViewById(R.id.nid_number_editText);
         //------------------------------------------END---------------------------------------------
-        StudentDatabase db = StudentDatabase.getDatabase(this);
-        StudentDao studentDao = db.getDao();
+
+        //--------------------------------CODE FOR BUTTONS------------------------------------------
+        submit = (Button) findViewById(R.id.button_submit);
+        submit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                strStudentId = (String) studentID.getText().toString();
+                strStudentName = (String) studentName.getText().toString();
+                strDepartment = departmentSpinner.getSelectedItem().toString();
+                strPhoneNumber = (String) cc.getText().toString() + phoneNumber.getText().toString();
+                strNID = (String) NID.getText().toString();
+                saveData();
+            }
+        });
+        next = (Button) findViewById(R.id.button_next);
+        //-------------------------------------END--------------------------------------------------
+
     }
 
 
@@ -129,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,sbeDepartments);
             arrayAdapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             departmentSpinner.setAdapter(arrayAdapterDepartments);
+
         }else
         if(position == 1){
             final String[] sepDepartments = getResources().getStringArray(R.array.sep_department_spinner);
@@ -151,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             departmentSpinner.setAdapter(arrayAdapterDepartments);
         }
 
-        strDepartment = departmentSpinner.getSelectedItem().toString();
+
         //----------------------------------------------END-----------------------------------------
     }
 
@@ -204,39 +201,55 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     private void saveData (){
-        StudentEntity student = new StudentEntity();
-
-        student.setStudent_name(strStudentName);
-        student.setStudent_id(strStudentId);
-        student.setSchool(strSchool);
-        student.setDepartment(strDepartment);
-        student.setDob(strDoB);
-        student.setPhone(strPhoneNumber);
-        student.setNid(strNID);
-
-        student.setPres_country(mPresCountry);
-        student.setPres_district(mPresDistrict);
-        student.setPres_post_office(mPresPostOffice);
-        student.setPres_police_station(mPresPoliceStation);
-        student.setPres_postal_code(mPresPostalCode);
-        student.setPres_hvc(mPresHVC);
-        student.setPres_rbs(mPresRBS);
-
-        student.setPerm_country(mPermCountry);
-        student.setPerm_district(mPermDistrict);
-        student.setPerm_post_office(mPermPostOffice);
-        student.setPerm_police_station(mPermPoliceStation);
-        student.setPerm_postal_code(mPermPostalCode);
-        student.setPerm_hvc(mPermHVC);
-        student.setPerm_rbs(mPermRBS);
-
-        Log.d(LOG_TAG, "DATABASE VALUE SET!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-        StudentDatabase.getDatabase(this).getDao().insert(student);
-        Toast.makeText(this,R.string.save_data,Toast.LENGTH_LONG).show();
-
+    SaveStudentData save = new SaveStudentData();
+    save.execute();
 
     }
+
+    class SaveStudentData extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids){
+            StudentEntity student = new StudentEntity();
+
+            student.setStudent_id(strStudentId);
+            student.setStudent_name(strStudentName);
+            student.setSchool(strSchool);
+            student.setDepartment(strDepartment);
+            student.setDob(strDoB);
+            student.setPhone(strPhoneNumber);
+            student.setNid(strNID);
+
+            student.setPres_country(mPresCountry);
+            student.setPres_district(mPresDistrict);
+            student.setPres_post_office(mPresPostOffice);
+            student.setPres_police_station(mPresPoliceStation);
+            student.setPres_postal_code(mPresPostalCode);
+            student.setPres_hvc(mPresHVC);
+            student.setPres_rbs(mPresRBS);
+
+            student.setPerm_country(mPermCountry);
+            student.setPerm_district(mPermDistrict);
+            student.setPerm_post_office(mPermPostOffice);
+            student.setPerm_police_station(mPermPoliceStation);
+            student.setPerm_postal_code(mPermPostalCode);
+            student.setPerm_hvc(mPermHVC);
+            student.setPerm_rbs(mPermRBS);
+
+            Log.d(LOG_TAG, "DATABASE VALUE SET!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+            StudentDatabase.getDatabase(getApplicationContext()).getDao().insert(student);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(getApplicationContext(),R.string.save_data,Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 
     public void starStudentList(View view){

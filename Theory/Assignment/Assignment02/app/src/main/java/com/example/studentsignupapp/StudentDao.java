@@ -15,14 +15,14 @@ import io.reactivex.Completable;
 @Dao
 public interface StudentDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public Completable insert(StudentEntity students);
+    @Insert (onConflict = OnConflictStrategy.REPLACE)
+    public void insert(StudentEntity... students);
 
     @Update
-    public Completable update(StudentEntity students);
+    public  void update(StudentEntity students);
 
     @Delete
-    public Completable delete(StudentEntity students);
+    public void delete(StudentEntity students);
 
 
     @Query("SELECT * FROM student")

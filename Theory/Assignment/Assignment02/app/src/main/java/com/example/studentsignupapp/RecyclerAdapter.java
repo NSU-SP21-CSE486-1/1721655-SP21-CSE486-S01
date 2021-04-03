@@ -1,10 +1,15 @@
 package com.example.studentsignupapp;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +21,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Studen
     private final LayoutInflater layoutInflater;
     private Context mContext;
     private List<StudentEntity> studentList;
+    private Dialog dialog;
+
 
     public RecyclerAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
@@ -29,6 +36,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Studen
     public StudentListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = layoutInflater.inflate(R.layout.list_item,parent,false);
         StudentListHolder listHolder = new StudentListHolder(itemView);
+
+        dialog = new Dialog(mContext);
+        dialog.setContentView(R.layout.popup_message);
+
+
+
+
+        listHolder.list.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(mContext,"Clicked",Toast.LENGTH_LONG).show();
+                TextView dialogName = (TextView) dialog.findViewById(R.id.popup_name);
+                TextView dialogDepartment = (TextView) dialog.findViewById(R.id.popup_department);
+                dialogName.setText(studentList.get(listHolder.getAdapterPosition()).getStudent_name());
+                dialogDepartment.setText(studentList.get(listHolder.getAdapterPosition()).getDepartment());
+                dialog.show();
+            }
+        });
+
+
+
+
+
         return listHolder;
     }
 
@@ -56,12 +86,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Studen
         notifyDataSetChanged();
     }
 
-    public class StudentListHolder extends RecyclerView.ViewHolder{
+    public static class StudentListHolder extends RecyclerView.ViewHolder{
+        private LinearLayout list;
         private TextView listItem;
         private int  itemPosition;
 
         public StudentListHolder(View itemView) {
             super(itemView);
+            list = (LinearLayout) itemView.findViewById(R.id.linearlayout_item);
             listItem = itemView.findViewById(R.id.list_textView);
         }
 
