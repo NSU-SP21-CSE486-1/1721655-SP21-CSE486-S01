@@ -31,5 +31,8 @@ public interface StudentDao {
     @Query("SELECT * FROM  student WHERE student_id IN (:studentID)")
     List<StudentEntity> getAllByID(String[] studentID);
 
+    @Query("SELECT * FROM  student WHERE department IN (:studentDepartment)")
+    List<StudentEntity> getAllByDepartment(String[] studentDepartment);
+
 
 }

@@ -10,14 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentSignupApp">
 
-        <activity android:name=".StudentList"
-                  android:label="Student List"
-                  android:parentActivityName=".MainActivity">
-                  <meta-data
-                      android:name="android.support.PARENT_ACTIVITY"
-                      android:value="com.example.studentsignupapp.MainActivity"/>
+        <activity android:name=".Search"
+            android:label="Search"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.studentsignupapp.MainActivity" />
         </activity>
 
+        <activity
+            android:name=".StudentList"
+            android:label="Student List"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.studentsignupapp.MainActivity" />
+        </activity>
 
         <activity
             android:name=".Address"
@@ -27,7 +35,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.studentsignupapp.MainActivity" />
         </activity>
-
 
         <activity android:name=".MainActivity">
             <intent-filter>

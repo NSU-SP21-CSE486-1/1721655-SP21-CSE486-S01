@@ -34,6 +34,9 @@
     <string name="save_data">Student Information Saved</string>
     <string name="country_code">+880</string>
     <string name="no_item">No Student List Found.</string>
+    <string name="student_id_button">ID</string>
+    <string name="student_department_button">Department</string>
+    <string name="student_school_button">School</string>
 
     <string-array name="school_names">
         <item>School of Business &amp; Economics</item>

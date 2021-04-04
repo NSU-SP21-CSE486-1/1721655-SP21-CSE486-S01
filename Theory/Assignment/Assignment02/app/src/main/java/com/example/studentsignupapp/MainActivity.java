@@ -257,4 +257,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         startActivity(studentListIntent);
     }
 
+    public void startSearch(View view){
+        Intent searchIntent = new Intent(this,Search.class);
+        startActivity(searchIntent);
+    }
+
 }
