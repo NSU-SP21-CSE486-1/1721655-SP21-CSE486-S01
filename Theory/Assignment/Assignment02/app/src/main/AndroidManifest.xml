@@ -11,7 +11,7 @@
         android:theme="@style/Theme.StudentSignupApp">
 
         <activity android:name=".Search"
-            android:label="Search"
+            android:label="@string/label_search"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -20,7 +20,7 @@
 
         <activity
             android:name=".StudentList"
-            android:label="Student List"
+            android:label="@string/label_student_list"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -29,7 +29,7 @@
 
         <activity
             android:name=".Address"
-            android:label="Address"
+            android:label="@string/label_address"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

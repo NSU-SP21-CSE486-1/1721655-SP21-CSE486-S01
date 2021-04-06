@@ -1,9 +1,15 @@
 package com.example.studentsignupapp;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.icu.util.Calendar;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -19,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -32,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private String mPermCountry,mPermDistrict,mPermPostOffice,mPermPoliceStation,mPermPostalCode,mPermHVC,mPermRBS;
     private Button submit,next;
     private TextView cc;
+    private Button langButton;
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     //public static final String EXTRA_DATA = "com.example.android.studentsignupapp.extra.DATA";
@@ -41,7 +49,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale();
         setContentView(R.layout.activity_main);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.app_name));
+
+        //---------------------------------CODE FOR LANGUAGE BUTTONS--------------------------------
+        langButton = findViewById(R.id.button_lang);
+        langButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLanguageSelectDialog();
+            }
+        });
+        //----------------------------------------END-----------------------------------------------
 
         //----------------------------CODE FOR STUDENT NAME & ID------------------------------------
         studentName = (EditText) findViewById(R.id.student_name_editText);
@@ -110,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //-------------------------------------END--------------------------------------------------
 
     }
-
 
 
 
@@ -198,12 +218,58 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
     //-------------------------------------------END------------------------------------------------
 
+    private void showLanguageSelectDialog() {
+    final String[] listItems = {"English","বাংলা"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        mBuilder.setTitle("Select Language");
+        mBuilder.setSingleChoiceItems(listItems,-1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                if(i == 0){
+                    setLocale("en");
+                    recreate();
+                }
+                else if(i == 1){
+                    setLocale("bn");
+                    recreate();
+                }
+                dialog.dismiss();
+            }
+        });
 
-   //------------------------------------CODE FOR SAVE DATA-----------------------------------------
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
+
+
+    }
+
+
+    private void setLocale(String s) {
+        Locale locale = new Locale(s);
+        Locale.setDefault(locale);
+        Configuration config =  new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings",MODE_PRIVATE).edit();
+        editor.putString("App_Lang",s);
+        editor.apply();
+    }
+
+    public void loadLocale(){
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("App_Lang","");
+        setLocale(language);
+    }
+
+
+
+
+
+
+    //------------------------------------CODE FOR SAVE DATA-----------------------------------------
     private void saveData (){
     SaveStudentData save = new SaveStudentData();
     save.execute();
-
     }
 
     class SaveStudentData extends AsyncTask<Void,Void,Void>{

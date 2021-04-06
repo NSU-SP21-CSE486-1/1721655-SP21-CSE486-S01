@@ -10,7 +10,7 @@
     <string name="phone_number">Phone Number</string>
     <string name="nid_number">NID Number</string>
     <string name="nid_no_10_digits">NID no. (10 Digits)</string>
-    <string name="button_next">Next</string>
+    <string name="button_next">Forward</string>
     <string name="button_submit">Submit</string>
     <string name="present_address">Present Address</string>
     <string name="country_name">Country Name</string>
@@ -37,6 +37,15 @@
     <string name="student_id_button">ID</string>
     <string name="student_department_button">Department</string>
     <string name="student_school_button">School</string>
+    <string name="empty_search_field">Search field is empty!!</string>
+    <string name="no_results_found">No Results Found !!</string>
+    <string name="bangla">বাংলা</string>
+    <string name="english">English</string>
+    <string name="label_search">Search</string>
+    <string name="label_student_list">Student List</string>
+    <string name="label_address">Address</string>
+    <string name="button_language">Language</string>
+    <string name="search_hint">Search...</string>
 
     <string-array name="school_names">
         <item>School of Business &amp; Economics</item>
