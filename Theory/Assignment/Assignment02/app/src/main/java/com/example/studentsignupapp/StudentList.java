@@ -23,7 +23,6 @@ public class StudentList extends AppCompatActivity {
     private StudentDatabase studentDB;
     private LiveData<List<StudentEntity>> allStudent;
     private RecyclerView recyclerView;
-    private TextView listItem;
 
 
     @Override
@@ -48,6 +47,8 @@ public class StudentList extends AppCompatActivity {
                 recyclerAdapter.setStudentList(studentEntities);
             }
         });
+
+
 
     }
 

@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //-------------------------------------------END------------------------------------------------
 
 
-
+   //------------------------------------CODE FOR SAVE DATA-----------------------------------------
     private void saveData (){
     SaveStudentData save = new SaveStudentData();
     save.execute();
@@ -249,17 +249,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Toast.makeText(getApplicationContext(),R.string.save_data,Toast.LENGTH_LONG).show();
         }
     }
+    //------------------------------------------END-------------------------------------------------
 
-
-
+    //----------------------------CODE FOR STUDENT LIST ACTIVITY------------------------------------
     public void starStudentList(View view){
         Intent studentListIntent = new Intent(this,StudentList.class);
         startActivity(studentListIntent);
     }
+    //----------------------------------------END---------------------------------------------------
 
+    //-----------------------------CODE FOR SEARCH ACTIVITY-----------------------------------------
     public void startSearch(View view){
         Intent searchIntent = new Intent(this,Search.class);
         startActivity(searchIntent);
     }
+    //----------------------------------------END---------------------------------------------------
+
 
 }

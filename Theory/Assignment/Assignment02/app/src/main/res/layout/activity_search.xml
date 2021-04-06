@@ -6,9 +6,7 @@
         tools:context=".Search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="74dp"
-        tools:layout_editor_absoluteY="34dp">
+        android:orientation="vertical">
 
 
     <SearchView
@@ -45,12 +43,17 @@
             android:layout_height="match_parent"
             android:text="@string/student_school_button"
             android:onClick="schoolFilter"/>
+
+
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/student_listView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_recyclerView"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/search_list_item"/>
 
 
 </LinearLayout>

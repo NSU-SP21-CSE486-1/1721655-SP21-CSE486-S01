@@ -8,6 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
@@ -28,8 +29,12 @@ public interface StudentDao {
     @Query("SELECT * FROM student")
     LiveData<List<StudentEntity>> getALL();
 
-    @Query("SELECT * FROM  student WHERE student_id IN (:studentID)")
-    List<StudentEntity> getAllByID(String[] studentID);
+    @Query("SELECT * FROM student")
+    List<StudentEntity> getAllStudent();
+
+
+    @Query("SELECT * FROM  student WHERE student_id LIKE (:studentID)")
+    List<StudentEntity> getAllByID(String studentID);
 
     @Query("SELECT * FROM  student WHERE department IN (:studentDepartment)")
     List<StudentEntity> getAllByDepartment(String[] studentDepartment);

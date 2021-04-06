@@ -18,7 +18,7 @@ public abstract class StudentDatabase extends RoomDatabase {
 
         if(instance == null ){
             synchronized (StudentDatabase.class){
-                instance = Room.databaseBuilder(context,StudentDatabase.class,"database-name").build();
+                instance = Room.databaseBuilder(context,StudentDatabase.class,"database-name").allowMainThreadQueries().build();
             }
         }
      return instance;

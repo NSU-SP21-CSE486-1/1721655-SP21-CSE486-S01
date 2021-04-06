@@ -56,9 +56,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Studen
         });
 
 
-
-
-
         return listHolder;
     }
 
