@@ -219,9 +219,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //-------------------------------------------END------------------------------------------------
 
     private void showLanguageSelectDialog() {
-    final String[] listItems = {"English","বাংলা"};
+    final String[] listItems = {getResources().getString(R.string.english),getResources().getString(R.string.bangla)};
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-        mBuilder.setTitle("Select Language");
+        mBuilder.setTitle(R.string.select_language);
         mBuilder.setSingleChoiceItems(listItems,-1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {

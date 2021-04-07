@@ -7,7 +7,7 @@
     <string name="student_name">শিক্ষার্থীর নাম</string>
     <string name="student_name_editText">এনএসইউ আইডি নাম</string>
     <string name="student_id">শিক্ষার্থী আইডি</string>
-    <string name="student_id_editText">৭ ডিজিটর শিক্ষার্থী আইডি</string>
+    <string name="student_id_editText">৭ সংখ্যা শিক্ষার্থী আইডি</string>
     <string name="school_name">বিদ্যালয়</string>
     <string name="department_name">বিভাগ</string>
     <string name="date_of_birth">জন্ম তারিখ</string>
@@ -46,5 +46,6 @@
     <string name="bangla">বাংলা</string>
     <string name="english">English</string>
     <string name="button_language">ভাষা</string>
-    <string name="search_hint">অনুসন্ধান করুন...</string>
+    <string name="search_hint">অনুসন্ধান করুন…</string>
+    <string name="select_language">ভাষা নির্বাচন করুন</string>
 </resources>

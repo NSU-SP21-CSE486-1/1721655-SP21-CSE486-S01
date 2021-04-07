@@ -1,6 +1,7 @@
 package com.example.studentsignupapp;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
@@ -33,6 +34,8 @@ public class Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.label_search));
 
         recyclerView = findViewById(R.id.search_recyclerView);
         recyclerAdapter = new SearchListAdapter(this);
@@ -79,17 +82,17 @@ public class Search extends AppCompatActivity {
             listStudent = studentDao.getAllStudent();
             ArrayList<StudentEntity> filteredStudentList = new ArrayList<>();
             for (StudentEntity student : listStudent) {
-                if (student.getStudent_id().contains(id))
+                if (student.getStudent_id().contentEquals(id))
                     filteredStudentList.add(student);
                 else
-                    Toast.makeText(getApplicationContext(),R.string.no_results_found,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),getResources().getString(R.string.no_results_found),Toast.LENGTH_SHORT).show();
 
             }
 
             recyclerAdapter.setStudentList(filteredStudentList);
         }else
         {
-            Toast.makeText(getApplicationContext(),R.string.empty_search_field,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.empty_search_field),Toast.LENGTH_SHORT).show();
         }
 
 
@@ -102,15 +105,15 @@ public class Search extends AppCompatActivity {
             listStudent = studentDao.getAllStudent();
             ArrayList<StudentEntity> filteredStudentList = new ArrayList<>();
             for (StudentEntity student : listStudent) {
-                if (student.getDepartment().toLowerCase().contains(department.toLowerCase()))
+                if (student.getDepartment().toLowerCase().contentEquals(department.toLowerCase()))
                     filteredStudentList.add(student);
                 else
-                    Toast.makeText(getApplicationContext(),R.string.no_results_found, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),getResources().getString(R.string.no_results_found), Toast.LENGTH_SHORT).show();
             }
 
             recyclerAdapter.setStudentList(filteredStudentList);
         }else{
-            Toast.makeText(getApplicationContext(),R.string.empty_search_field,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.empty_search_field),Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -122,15 +125,15 @@ public class Search extends AppCompatActivity {
             listStudent = studentDao.getAllStudent();
             ArrayList<StudentEntity> filteredStudentList = new ArrayList<>();
             for (StudentEntity student : listStudent) {
-                if (student.getSchool().toLowerCase().contains(school.toLowerCase()))
+                if (student.getSchool().toLowerCase().contentEquals(school.toLowerCase()))
                     filteredStudentList.add(student);
                 else
-                    Toast.makeText(getApplicationContext(),R.string.no_results_found, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),getResources().getString(R.string.no_results_found), Toast.LENGTH_SHORT).show();
             }
 
             recyclerAdapter.setStudentList(filteredStudentList);
         }else{
-            Toast.makeText(getApplicationContext(),R.string.empty_search_field,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.empty_search_field),Toast.LENGTH_SHORT).show();
         }
 
 

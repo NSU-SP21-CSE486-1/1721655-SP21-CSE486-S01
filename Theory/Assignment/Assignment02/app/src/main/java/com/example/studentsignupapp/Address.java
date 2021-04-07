@@ -1,5 +1,6 @@
 package com.example.studentsignupapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ public class Address extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.label_address));
         //----------------------------------PRESENT ADDRESS-----------------------------------------
         mPresCountry = findViewById(R.id.country_name_editText);
         mPresDistrict = findViewById(R.id.district_name_editText);
