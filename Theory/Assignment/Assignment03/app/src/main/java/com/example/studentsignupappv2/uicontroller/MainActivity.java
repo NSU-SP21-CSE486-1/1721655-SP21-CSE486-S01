@@ -1,8 +1,10 @@
-package com.example.studentsignupappv2;
+package com.example.studentsignupappv2.uicontroller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.studentsignupappv2.R;
 
 public class MainActivity extends AppCompatActivity {
 
