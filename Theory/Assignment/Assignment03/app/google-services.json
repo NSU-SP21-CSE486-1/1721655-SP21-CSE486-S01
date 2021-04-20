@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "898659099934",
+    "firebase_url": "https://student-signup-92485-default-rtdb.firebaseio.com",
+    "project_id": "student-signup-92485",
+    "storage_bucket": "student-signup-92485.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898659099934:android:5bbaf6a2e580249f0e550f",
+        "android_client_info": {
+          "package_name": "com.example.studentsignupappv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "898659099934-2lpfojvdphidlvekac0ele4d0ospj8lm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.studentsignupappv2",
+            "certificate_hash": "cb2ac55842918d9693799a372d027b7be844fd31"
+          }
+        },
+        {
+          "client_id": "898659099934-pl3sb3e8ipug2s3jhd5gtdc2k4982fn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACQHNFe8tkhtqAl39afp4e9AIfR4pU_mc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "898659099934-pl3sb3e8ipug2s3jhd5gtdc2k4982fn1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
