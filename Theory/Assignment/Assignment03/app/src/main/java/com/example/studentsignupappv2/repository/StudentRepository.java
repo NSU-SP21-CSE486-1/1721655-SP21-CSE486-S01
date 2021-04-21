@@ -14,8 +14,8 @@ public class StudentRepository {
 
  private static final int THREADS_NUMBER= 4;
  private static final ExecutorService threadExecutor = Executors.newFixedThreadPool(THREADS_NUMBER);
- private FirebaseDatabase firebaseRef;
- private DatabaseReference dbRef;
+ private final FirebaseDatabase firebaseRef;
+ private final DatabaseReference dbRef;
 
  public StudentRepository(){
   firebaseRef = FirebaseDatabase.getInstance();
@@ -25,7 +25,7 @@ public class StudentRepository {
  public static ExecutorService getThreadExecutor(){return threadExecutor;}
 
  public void insert(StudentEntity student){
-   dbRef.setValue(student);
+   dbRef.child(student.getStudent_id()).setValue(student);
  }
 
 

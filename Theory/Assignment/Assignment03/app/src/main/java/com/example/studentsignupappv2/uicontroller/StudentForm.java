@@ -17,8 +17,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.studentsignupappv2.R;
+import com.example.studentsignupappv2.datascource.StudentEntity;
+import com.example.studentsignupappv2.viewmodel.StudentViewModel;
 
 public class StudentForm extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Spinner schoolSpinner;
@@ -33,6 +36,7 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
     private TextView cc;
     private Button langButton;
     public static final int TEXT_REQUEST = 1;
+    private StudentViewModel studentViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -120,6 +124,8 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
         next = (Button) findViewById(R.id.button_next);
         //-------------------------------------END--------------------------------------------------
 
+        //--------------------------------Student ViewModel-----------------------------------------
+        studentViewModel = new StudentViewModel(getApplication());
     }
 
 
@@ -208,8 +214,37 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
     }
     //-------------------------------------------END------------------------------------------------
 
+    //------------------------------------CODE FOR SAVE DATA----------------------------------------
     private void saveData (){
+        StudentEntity student = new StudentEntity();
 
+        student.setStudent_id(strStudentId);
+        student.setStudent_name(strStudentName);
+        student.setSchool(strSchool);
+        student.setDepartment(strDepartment);
+        student.setDob(strDoB);
+        student.setPhone(strPhoneNumber);
+        student.setNid(strNID);
+
+        student.setPres_country(mPresCountry);
+        student.setPres_district(mPresDistrict);
+        student.setPres_post_office(mPresPostOffice);
+        student.setPres_police_station(mPresPoliceStation);
+        student.setPres_postal_code(mPresPostalCode);
+        student.setPres_hvc(mPresHVC);
+        student.setPres_rbs(mPresRBS);
+
+        student.setPerm_country(mPermCountry);
+        student.setPerm_district(mPermDistrict);
+        student.setPerm_post_office(mPermPostOffice);
+        student.setPerm_police_station(mPermPoliceStation);
+        student.setPerm_postal_code(mPermPostalCode);
+        student.setPerm_hvc(mPermHVC);
+        student.setPerm_rbs(mPermRBS);
+
+        studentViewModel.insert(student);
+        Toast.makeText(getApplicationContext(),R.string.save_data,Toast.LENGTH_LONG).show();
     }
+    //------------------------------------------END-------------------------------------------------
 
 }
