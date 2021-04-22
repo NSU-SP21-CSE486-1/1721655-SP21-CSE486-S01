@@ -3,6 +3,7 @@ package com.example.studentsignupappv2.uicontroller;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -125,7 +126,7 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
         //-------------------------------------END--------------------------------------------------
 
         //--------------------------------Student ViewModel-----------------------------------------
-        studentViewModel = new StudentViewModel(getApplication());
+        studentViewModel = new ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(StudentViewModel.class);
     }
 
 
@@ -247,4 +248,10 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
     }
     //------------------------------------------END-------------------------------------------------
 
+    //----------------------------CODE FOR STUDENT LIST ACTIVITY------------------------------------
+    public void startStudentList(View view){
+        Intent studentListIntent = new Intent(this,StudentList.class);
+        startActivity(studentListIntent);
+    }
+    //----------------------------------------END---------------------------------------------------
 }
