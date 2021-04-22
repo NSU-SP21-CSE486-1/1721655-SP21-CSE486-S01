@@ -9,15 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentSignupAppV2">
-        <activity android:name=".uicontroller.StudentForm">
-
+        <activity android:name=".uicontroller.StudentList">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.studentsignupappv2.uicontroller.StudentForm" />
         </activity>
+        <activity android:name=".uicontroller.StudentForm"></activity>
         <activity android:name=".uicontroller.Address">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.studentsignupappv2.uicontroller.StudentForm" />
         </activity>
-
         <activity android:name=".uicontroller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
