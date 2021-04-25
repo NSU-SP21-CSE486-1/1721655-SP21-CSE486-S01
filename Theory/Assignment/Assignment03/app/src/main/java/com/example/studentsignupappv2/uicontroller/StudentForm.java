@@ -254,4 +254,13 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
         startActivity(studentListIntent);
     }
     //----------------------------------------END---------------------------------------------------
+
+    //-----------------------------CODE FOR SEARCH ACTIVITY-----------------------------------------
+    public void startSearch(View view){
+        Intent searchIntent = new Intent(this,StudentSearch.class);
+        startActivity(searchIntent);
+    }
+    //----------------------------------------END---------------------------------------------------
+
+
 }
