@@ -14,11 +14,13 @@ import java.util.List;
 
 public class StudentViewModel extends AndroidViewModel {
     private MutableLiveData<List<StudentEntity>> mAllStudents;
+    private List<StudentEntity> stdAll;
     private final StudentRepository studentRep;
     public StudentViewModel(@NonNull Application application) {
         super(application);
         studentRep = StudentRepository.getInstance();
         mAllStudents = studentRep.getAllStudents();
+        stdAll = studentRep.getAll();
     }
 
     public void insert(StudentEntity student) {
@@ -29,4 +31,5 @@ public class StudentViewModel extends AndroidViewModel {
     public LiveData<List<StudentEntity>> getAllStudents(){
         return mAllStudents;
     }
+    public List<StudentEntity> getAll(){ return stdAll; }
 }

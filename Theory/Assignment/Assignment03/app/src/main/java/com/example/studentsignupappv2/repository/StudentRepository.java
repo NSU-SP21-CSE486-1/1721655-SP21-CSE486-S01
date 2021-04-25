@@ -23,6 +23,7 @@ public class StudentRepository {
  private final DatabaseReference dbRef;
  private List<StudentEntity> mAllStudent;
  private MutableLiveData<List<StudentEntity>> students;
+
  public StudentRepository(){
   firebaseRef = FirebaseDatabase.getInstance();
   dbRef =  firebaseRef.getReference("user");
@@ -44,9 +45,10 @@ public class StudentRepository {
    @Override
    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-     mAllStudent.add(snapshot.getValue(StudentEntity.class));
+            mAllStudent.clear();
+            mAllStudent.add(snapshot.getValue(StudentEntity.class));
+
     }
-    students.postValue(mAllStudent);
    }
 
    @Override
@@ -64,10 +66,17 @@ public class StudentRepository {
  public MutableLiveData<List<StudentEntity>> getAllStudents(){
   if(mAllStudent.size() == 0) {
    loadStudents();
-  }students.setValue(mAllStudent);
+  }
+  students.setValue(mAllStudent);
   return students;
  }
 
+ public List<StudentEntity> getAll(){
+     if(mAllStudent.size() == 0){
+         loadStudents();
+     }
 
+     return mAllStudent;
+ }
 
 }

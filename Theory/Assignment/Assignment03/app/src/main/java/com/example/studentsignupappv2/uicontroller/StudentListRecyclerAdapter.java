@@ -41,7 +41,6 @@ public class StudentListRecyclerAdapter extends RecyclerView.Adapter<StudentList
         listHolder.list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(mContext,"Clicked",Toast.LENGTH_LONG).show();
                 TextView dialogName = (TextView) dialog.findViewById(R.id.popup_name);
                 TextView dialogDepartment = (TextView) dialog.findViewById(R.id.popup_department);
                 dialogName.setText(studentList.get(listHolder.getAdapterPosition()).getStudent_name());
