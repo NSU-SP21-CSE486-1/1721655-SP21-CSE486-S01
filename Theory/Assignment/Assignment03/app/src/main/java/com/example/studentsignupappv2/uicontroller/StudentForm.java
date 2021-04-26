@@ -127,6 +127,44 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
 
         //--------------------------------Student ViewModel-----------------------------------------
         studentViewModel = new ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(StudentViewModel.class);
+        //-------------------------------------END--------------------------------------------------
+
+
+        //----------------------CODE FOR SETTING SAVED INSTANCE STATE-------------------------------
+        if(savedInstanceState != null){
+            //------------------------------FORM DATA-----------------------------------------------
+            studentName.setText(savedInstanceState.getString("reply1"));
+            studentID.setText(savedInstanceState.getString("reply2"));
+            strSchool = savedInstanceState.getString("reply3");
+            strDepartment = savedInstanceState.getString("reply4");
+            dateOfBirth.setText(savedInstanceState.getString("reply5"));
+            phoneNumber.setText(savedInstanceState.getString("reply6"));
+            NID.setText(savedInstanceState.getString("reply7"));
+            //----------------------------------END-------------------------------------------------
+
+            //------------------------------PRESENT ADDRESS-----------------------------------------
+            mPresCountry = savedInstanceState.getString("reply_text1");
+            mPresDistrict = savedInstanceState.getString("reply_text2");
+            mPresPostOffice = savedInstanceState.getString("reply_text3");
+            mPresPoliceStation = savedInstanceState.getString("reply_text4");
+            mPresPostalCode = savedInstanceState.getString("reply_text5");
+            mPresHVC = savedInstanceState.getString("reply_text6");
+            mPresRBS = savedInstanceState.getString("reply_text7");
+            //----------------------------------END-------------------------------------------------
+
+            //----------------------------PERMANENT ADDRESS-----------------------------------------
+            mPermCountry = savedInstanceState.getString("reply_text8");
+            mPermDistrict = savedInstanceState.getString("reply_text9");
+            mPermPostOffice = savedInstanceState.getString("reply_text10");
+            mPermPoliceStation = savedInstanceState.getString("reply_text11");
+            mPermPostalCode = savedInstanceState.getString("reply_text12");
+            mPermHVC = savedInstanceState.getString("reply_text13");
+            mPermRBS = savedInstanceState.getString("reply_text14");
+            //------------------------------------END-----------------------------------------------
+        }
+        //-------------------------------------END--------------------------------------------------
+
+
     }
 
 
@@ -152,15 +190,15 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
 
         }else
         if(position == 2){
-            final String[] shlDepartments = getResources().getStringArray(R.array.shl_department_spinner);
-            arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,shlDepartments);
+            final String[] shsDepartments = getResources().getStringArray(R.array.shs_department_spinner);
+            arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,shsDepartments);
             arrayAdapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             departmentSpinner.setAdapter(arrayAdapterDepartments);
 
         }else
         if(position == 3){
-            final String[] shsDepartments = getResources().getStringArray(R.array.shs_department_spinner);
-            arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,shsDepartments);
+            final String[] shlDepartments = getResources().getStringArray(R.array.shl_department_spinner);
+            arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,shlDepartments);
             arrayAdapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             departmentSpinner.setAdapter(arrayAdapterDepartments);
         }
@@ -263,4 +301,40 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
     //----------------------------------------END---------------------------------------------------
 
 
+    //----------------------------CODE FOR SAVED INSTANCE STATE-------------------------------------
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        //---------------------------------------FORM INPUT-----------------------------------------
+        outState.putString("reply1",strStudentName);
+        outState.putString("reply2",strStudentId);
+        outState.putString("reply3",strSchool);
+        outState.putString("reply4",strDepartment);
+        outState.putString("reply5",strDoB);
+        outState.putString("reply6",phoneNumber.getText().toString());
+        outState.putString("reply7",strNID);
+        //------------------------------------------END---------------------------------------------
+
+        //------------------------------------PRESENT ADDRESS---------------------------------------
+        outState.putString("reply_text1",mPresCountry);
+        outState.putString("reply_text2",mPresDistrict);
+        outState.putString("reply_text3",mPresPostOffice);
+        outState.putString("reply_text4",mPresPoliceStation);
+        outState.putString("reply_text5",mPermPostalCode);
+        outState.putString("reply_text6",mPresHVC);
+        outState.putString("reply_text7",mPresRBS);
+        //-----------------------------------------END----------------------------------------------
+
+        //-----------------------------------PERMANENT ADDRESS--------------------------------------
+        outState.putString("reply_text8",mPermCountry);
+        outState.putString("reply_text9",mPermDistrict);
+        outState.putString("reply_text10",mPermPostOffice);
+        outState.putString("reply_text11",mPermPoliceStation);
+        outState.putString("reply_text12",mPermPostalCode);
+        outState.putString("reply_text13",mPermHVC);
+        outState.putString("reply_text14",mPermRBS);
+        //-----------------------------------------END----------------------------------------------
+    }
+    //----------------------------------------END---------------------------------------------------
 }
