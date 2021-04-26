@@ -40,15 +40,13 @@ public class StudentRepository {
  }
 
  private void loadStudents(){
-   Query query = dbRef;
-   query.addValueEventListener(new ValueEventListener() {
+     dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
    @Override
    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-            mAllStudent.clear();
-            mAllStudent.add(snapshot.getValue(StudentEntity.class));
-
+        mAllStudent.add(snapshot.getValue(StudentEntity.class));
     }
+    students.postValue(mAllStudent);
    }
 
    @Override

@@ -63,7 +63,7 @@ public class StudentSearch extends AppCompatActivity {
 
     public void idFilter(View view) {
         if(id != null) {
-
+            viewModel.init();
             listStudent = viewModel.getAll();
             ArrayList<StudentEntity> filteredStudentList = new ArrayList<>();
             for (StudentEntity student : listStudent) {
@@ -85,7 +85,7 @@ public class StudentSearch extends AppCompatActivity {
 
     public void departmentFilter(View view) {
         if(department != null) {
-
+            viewModel.init();
             listStudent = viewModel.getAll();
             ArrayList<StudentEntity> filteredStudentList = new ArrayList<>();
             for (StudentEntity student : listStudent) {
@@ -104,7 +104,7 @@ public class StudentSearch extends AppCompatActivity {
 
     public void schoolFilter(View view) {
         if(school != null) {
-
+            viewModel.init();
             listStudent = viewModel.getAll();
             ArrayList<StudentEntity> filteredStudentList = new ArrayList<>();
             for (StudentEntity student : listStudent) {

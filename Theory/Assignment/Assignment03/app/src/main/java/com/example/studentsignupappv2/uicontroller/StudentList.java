@@ -30,6 +30,7 @@ public class StudentList extends AppCompatActivity {
         studentListRecyclerAdapter = new StudentListRecyclerAdapter(this);
         recyclerView.setAdapter(studentListRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        viewModel.initLive();
         allStudents = viewModel.getAllStudents();
         allStudents.observe(this, new Observer<List<StudentEntity>>() {
             @Override

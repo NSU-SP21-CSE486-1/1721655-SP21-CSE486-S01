@@ -19,8 +19,6 @@ public class StudentViewModel extends AndroidViewModel {
     public StudentViewModel(@NonNull Application application) {
         super(application);
         studentRep = StudentRepository.getInstance();
-        mAllStudents = studentRep.getAllStudents();
-        stdAll = studentRep.getAll();
     }
 
     public void insert(StudentEntity student) {
@@ -28,8 +26,24 @@ public class StudentViewModel extends AndroidViewModel {
 
     }
 
+    public void initLive(){
+        if(mAllStudents != null){
+            return;
+        }
+        mAllStudents = studentRep.getAllStudents();
+    }
+    public void init(){
+        if(stdAll != null){
+            return;
+        }
+        stdAll = studentRep.getAll();
+    }
+
     public LiveData<List<StudentEntity>> getAllStudents(){
         return mAllStudents;
     }
-    public List<StudentEntity> getAll(){ return stdAll; }
+
+    public List<StudentEntity> getAll(){
+        return stdAll;
+    }
 }
