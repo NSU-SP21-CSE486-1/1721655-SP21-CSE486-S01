@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.studentsignupappv2.datascource.StudentEntity;
 import com.example.studentsignupappv2.repository.StudentRepository;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthActionCodeException;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class StudentViewModel extends AndroidViewModel {
     private MutableLiveData<List<StudentEntity>> mAllStudents;
     private List<StudentEntity> stdAll;
     private final StudentRepository studentRep;
+    private FirebaseAuth mRegister;
     public StudentViewModel(@NonNull Application application) {
         super(application);
         studentRep = StudentRepository.getInstance();
@@ -38,6 +41,15 @@ public class StudentViewModel extends AndroidViewModel {
         }
         stdAll = studentRep.getAll();
     }
+
+    public void regInit(){
+        if(mRegister != null){
+            return;
+        }
+        mRegister = studentRep.registerUser();
+    }
+
+    public FirebaseAuth userRegister() { return mRegister; }
 
     public LiveData<List<StudentEntity>> getAllStudents(){
         return mAllStudents;

@@ -2,15 +2,16 @@ package com.example.studentsignupappv2.repository;
 
 
 
+
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.studentsignupappv2.datascource.StudentEntity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
 public class StudentRepository {
  private static StudentRepository instance;
  private final FirebaseDatabase firebaseRef;
+ private final FirebaseAuth  firebaseAuth;
  private final DatabaseReference dbRef;
  private List<StudentEntity> mAllStudent;
  private MutableLiveData<List<StudentEntity>> students;
@@ -29,6 +31,7 @@ public class StudentRepository {
   dbRef =  firebaseRef.getReference("user");
   mAllStudent = new ArrayList<>();
   students = new MutableLiveData<>();
+  firebaseAuth = FirebaseAuth.getInstance();
 
  }
 
@@ -75,6 +78,10 @@ public class StudentRepository {
      }
 
      return mAllStudent;
+ }
+
+ public FirebaseAuth  registerUser(){
+    return firebaseAuth;
  }
 
 }
