@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Register extends AppCompatActivity {
 
+    private static final String TAG = Register.class.getSimpleName() ;
     private FirebaseAuth mAuth;
     private StudentViewModel viewModel;
     private EditText mEmail,mPassword;
@@ -31,18 +35,20 @@ public class Register extends AppCompatActivity {
         mAuth = viewModel.userRegister();
         mEmail = findViewById(R.id.student_email_editText_register);
         mPassword = findViewById(R.id.student_password_editText_register);
-        email = mEmail.getText().toString().trim();
-        password = mPassword.getText().toString().trim();
 
+    }
+
+    public void register(View view){
+        email = mEmail.getText().toString();
+        password = mPassword.getText().toString();
         mAuth.createUserWithEmailAndPassword(email,password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(Register.this,"Registration Complete",Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(),Login.class));
-                        }
-                    }
+                .addOnCompleteListener(Register.this, task -> {
+                    if(task.isSuccessful()){
+                        //Toast.makeText(Register.this,"Registration Complete",Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getApplicationContext(),Login.class));
+                    }else
+                        Toast.makeText(Register.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
                 });
+
     }
 }

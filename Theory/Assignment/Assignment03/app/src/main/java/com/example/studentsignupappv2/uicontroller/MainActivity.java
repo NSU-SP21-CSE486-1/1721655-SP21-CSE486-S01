@@ -13,12 +13,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        StudentForm();
+        login();
 
     }
 
-    public void StudentForm(){
-        Intent intent = new Intent(this,StudentForm.class);
+    public void login(){
+        Intent intent = new Intent(this,Login.class);
         startActivity(intent);
         finish();
     }
