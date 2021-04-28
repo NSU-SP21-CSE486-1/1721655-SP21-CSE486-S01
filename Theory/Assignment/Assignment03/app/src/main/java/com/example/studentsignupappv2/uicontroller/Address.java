@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.studentsignupappv2.R;
+import com.example.studentsignupappv2.datascource.SharedPrefManager;
 
 public class Address extends AppCompatActivity {
 
@@ -30,6 +31,8 @@ public class Address extends AppCompatActivity {
     private EditText mPermCountry,mPermDistrict,mPermPostOffice,mPermPoliceStation,mPermPostalCode,mPermHVC,mPermRBS;
     private EditText mPresCountry,mPresDistrict,mPresPostOffice,mPresPoliceStation,mPresPostalCode,mPresHVC,mPresRBS;
 
+    private SharedPrefManager pref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class Address extends AppCompatActivity {
         setContentView(R.layout.activity_address);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getResources().getString(R.string.label_address));
+        pref = new SharedPrefManager(Address.this);
         //----------------------------------PRESENT ADDRESS-----------------------------------------
         mPresCountry = findViewById(R.id.country_name_editText);
         mPresDistrict = findViewById(R.id.district_name_editText);
@@ -83,6 +87,25 @@ public class Address extends AppCompatActivity {
         }
         //---------------------------------------END------------------------------------------------
 
+        //-----------------------CODE FOR SETTING SHARED PREFERENCE DATA----------------------------
+        mPresCountry.setText(pref.getKeyPresCountry());
+        mPresDistrict.setText(pref.getKeyPresDistrict());
+        mPresPostOffice.setText(pref.getKeyPresPostOffice());
+        mPresPoliceStation.setText(pref.getKeyPresPoliceStation());
+        mPresPostalCode.setText(pref.getKeyPresPostalCode());
+        mPresHVC.setText(pref.getKeyPresHvc());
+        mPresRBS.setText(pref.getKeyPresRbs());
+
+        mPermCountry.setText(pref.getKeyPermCountry());
+        mPermDistrict.setText(pref.getKeyPermDistrict());
+        mPermPostOffice.setText(pref.getKeyPermPostOffice());
+        mPermPoliceStation.setText(pref.getKeyPermPoliceStation());
+        mPermPostalCode.setText(pref.getKeyPermPostalCode());
+        mPermHVC.setText(pref.getKeyPermHvc());
+        mPermRBS.setText(pref.getKeyPermRbs());
+
+        //---------------------------------------END------------------------------------------------
+
     }
 
 
@@ -123,6 +146,8 @@ public class Address extends AppCompatActivity {
         replyIntent.putExtra(EXTRA_REPLY_14, reply14);
         //---------------------------------------END------------------------------------------------
         setResult(RESULT_OK,replyIntent);
+        pref.setDataAddress("","","","","","","",
+                "","","","","","","");
         finish();
     }
     //--------------------------------------------END-----------------------------------------------
@@ -155,6 +180,19 @@ public class Address extends AppCompatActivity {
         //-----------------------------------------END----------------------------------------------
 
     }
+    //---------------------------------------------END----------------------------------------------
+
+    //------------------------------------SHARED PREFERENCE CODE------------------------------------
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pref.setDataAddress(
+                mPresCountry.getText().toString(), mPresDistrict.getText().toString(), mPresPostOffice.getText().toString(), mPresPoliceStation.getText().toString(),
+                mPresPostalCode.getText().toString(), mPresHVC.getText().toString(), mPresRBS.getText().toString(), mPermCountry.getText().toString(), mPermDistrict.getText().toString(),
+                mPermPostOffice.getText().toString(), mPermPoliceStation.getText().toString(), mPermPostalCode.getText().toString(), mPermHVC.getText().toString(), mPermRBS.getText().toString());
+    }
+
     //---------------------------------------------END----------------------------------------------
 
 }

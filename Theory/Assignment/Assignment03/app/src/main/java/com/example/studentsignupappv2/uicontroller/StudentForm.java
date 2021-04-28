@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.studentsignupappv2.R;
+import com.example.studentsignupappv2.datascource.SharedPrefManager;
 import com.example.studentsignupappv2.datascource.StudentEntity;
 import com.example.studentsignupappv2.viewmodel.StudentViewModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,12 +40,17 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
     private Button langButton;
     public static final int TEXT_REQUEST = 1;
     private StudentViewModel studentViewModel;
+    private SharedPrefManager pref;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_form);
+
+        pref = new SharedPrefManager(this);
+
+
         /*loadLocale();
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
@@ -121,6 +127,9 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
                 strPhoneNumber = cc.getText().toString() + phoneNumber.getText().toString();
                 strNID = NID.getText().toString();
                 saveData();
+                pref.setDataForm("","","","","");
+                pref.setSchoolSpinner(0);
+                pref.setDepartmentSpinner(0);
             }
         });
         next = findViewById(R.id.button_next);
@@ -165,15 +174,35 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
         }
         //-------------------------------------END--------------------------------------------------
 
-
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pref.setDataForm(studentName.getText().toString(), studentID.getText().toString(),dateOfBirth.getText().toString(),
+                phoneNumber.getText().toString(), NID.getText().toString());
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //---------------------------CODE FOR SHARED PREFERENCE DATA--------------------------------
+        studentName.setText(pref.getKeyName());
+        studentID.setText(pref.getKeyId());
+        schoolSpinner.setSelection(pref.getKeySchool());
+        departmentSpinner.setSelection(pref.getKeyDepartment());
+        dateOfBirth.setText(pref.getKeyDob());
+        phoneNumber.setText(pref.getKeyPhone());
+        NID.setText(pref.getKeyNid());
+
+        //--------------------------------------END-------------------------------------------------
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
         strSchool =  schoolSpinner.getSelectedItem().toString();
+        pref.setSchoolSpinner(position);
 
         //---------------------------------SPINNER CODE FOR DEPARTMENTS-----------------------------
         if(position == 0){
@@ -181,6 +210,7 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
             arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,sbeDepartments);
             arrayAdapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             departmentSpinner.setAdapter(arrayAdapterDepartments);
+            pref.setDepartmentSpinner(departmentSpinner.getSelectedItemPosition());
 
         }else
         if(position == 1){
@@ -188,6 +218,7 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
             arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,sepDepartments);
             arrayAdapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             departmentSpinner.setAdapter(arrayAdapterDepartments);
+            pref.setDepartmentSpinner(departmentSpinner.getSelectedItemPosition());
 
         }else
         if(position == 2){
@@ -195,6 +226,7 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
             arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,shsDepartments);
             arrayAdapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             departmentSpinner.setAdapter(arrayAdapterDepartments);
+            pref.setDepartmentSpinner(departmentSpinner.getSelectedItemPosition());
 
         }else
         if(position == 3){
@@ -202,6 +234,7 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
             arrayAdapterDepartments = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,shlDepartments);
             arrayAdapterDepartments.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             departmentSpinner.setAdapter(arrayAdapterDepartments);
+            pref.setDepartmentSpinner(departmentSpinner.getSelectedItemPosition());
         }
 
 
@@ -342,6 +375,7 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
     //------------------------------------CODE FOR SIGN OUT-----------------------------------------
     public void signout(View view){
         FirebaseAuth.getInstance().signOut();
+        pref.logout();
         Intent intent = new Intent(StudentForm.this,Login.class);
         startActivity(intent);
         finish();

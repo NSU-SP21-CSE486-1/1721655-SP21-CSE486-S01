@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.studentsignupappv2.R;
+import com.example.studentsignupappv2.datascource.SharedPrefManager;
 import com.example.studentsignupappv2.viewmodel.StudentViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,25 +28,31 @@ public class Login extends AppCompatActivity {
     private StudentViewModel viewModel;
     private FirebaseAuth fireAuth;
     private static final String TAG = Login.class.getSimpleName() ;
+    SharedPrefManager pref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        pref = new SharedPrefManager(Login.this);
+
+        if(pref.checkLogin()){
+            startActivity(new Intent(Login.this,StudentForm.class));
+            finish();
+        }
 
         viewModel = new ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(StudentViewModel.class);
         viewModel.regInit();
-        fireAuth = /*viewModel.userRegister();*/FirebaseAuth.getInstance();
+        fireAuth = viewModel.userRegister();
         mEmail = findViewById(R.id.student_email_editText);
         mPassword = findViewById(R.id.student_password_editText);
 
-
-
-
-
     }
 
+
     public void login(View view){
+        pref.userLogin(mEmail.getText().toString(),mPassword.getText().toString());
         email = mEmail.getText().toString();
         password = mPassword.getText().toString();
         fireAuth.signInWithEmailAndPassword(email,password)
