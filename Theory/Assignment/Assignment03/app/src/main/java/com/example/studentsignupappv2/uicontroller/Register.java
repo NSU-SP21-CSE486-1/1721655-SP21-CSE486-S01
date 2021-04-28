@@ -44,8 +44,9 @@ public class Register extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(Register.this, task -> {
                     if(task.isSuccessful()){
-                        //Toast.makeText(Register.this,"Registration Complete",Toast.LENGTH_LONG).show();
+                        Toast.makeText(Register.this,"Registration Complete",Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(),Login.class));
+                        finish();
                     }else
                         Toast.makeText(Register.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
                 });

@@ -52,6 +52,7 @@ public class Login extends AppCompatActivity {
                 .addOnCompleteListener(Login.this, task -> {
                   if(task.isSuccessful()){
                       startActivity(new Intent(Login.this,StudentForm.class));
+                      finish();
                   }else
                       Toast.makeText(Login.this,"Login Failed!!!", Toast.LENGTH_SHORT).show();
                 });

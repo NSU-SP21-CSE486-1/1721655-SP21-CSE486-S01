@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.studentsignupappv2.R;
 import com.example.studentsignupappv2.datascource.StudentEntity;
 import com.example.studentsignupappv2.viewmodel.StudentViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class StudentForm extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Spinner schoolSpinner;
@@ -60,14 +61,14 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
         //----------------------------------------END-----------------------------------------------*/
 
         //----------------------------CODE FOR STUDENT NAME & ID------------------------------------
-        studentName = (EditText) findViewById(R.id.student_name_editText);
-        studentID = (EditText) findViewById(R.id.student_id_editText);
+        studentName = findViewById(R.id.student_name_editText);
+        studentID = findViewById(R.id.student_id_editText);
         //----------------------------------------END-----------------------------------------------
 
         //------------------------------SPINNER CODE FOR SCHOOL-------------------------------------
-        schoolSpinner = (Spinner) findViewById(R.id.school_spinner);
+        schoolSpinner = findViewById(R.id.school_spinner);
         schoolSpinner.setOnItemSelectedListener(this);
-        departmentSpinner = (Spinner) findViewById(R.id.department_spinner);
+        departmentSpinner = findViewById(R.id.department_spinner);
         final String[] school = getResources().getStringArray(R.array.school_names);
         arrayAdapterSchool =  new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,school);
         arrayAdapterSchool.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -101,28 +102,28 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
         //------------------------------------------END---------------------------------------------
 
         //---------------------------------CODE FOR PHONE NUMBER------------------------------------
-        cc = (TextView) findViewById(R.id.country_code);
-        phoneNumber = (EditText) findViewById(R.id.phone_number_editText);
+        cc = findViewById(R.id.country_code);
+        phoneNumber = findViewById(R.id.phone_number_editText);
         //-----------------------------------------END----------------------------------------------
 
         //---------------------------------CODE FOR NID NUMBER--------------------------------------
-        NID = (EditText) findViewById(R.id.nid_number_editText);
+        NID = findViewById(R.id.nid_number_editText);
         //------------------------------------------END---------------------------------------------
 
         //--------------------------------CODE FOR BUTTONS------------------------------------------
-        submit = (Button) findViewById(R.id.button_submit);
+        submit = findViewById(R.id.button_submit);
         submit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                strStudentId = (String) studentID.getText().toString();
-                strStudentName = (String) studentName.getText().toString();
+                strStudentId = studentID.getText().toString();
+                strStudentName = studentName.getText().toString();
                 strDepartment = departmentSpinner.getSelectedItem().toString();
-                strPhoneNumber = (String) cc.getText().toString() + phoneNumber.getText().toString();
-                strNID = (String) NID.getText().toString();
+                strPhoneNumber = cc.getText().toString() + phoneNumber.getText().toString();
+                strNID = NID.getText().toString();
                 saveData();
             }
         });
-        next = (Button) findViewById(R.id.button_next);
+        next = findViewById(R.id.button_next);
         //-------------------------------------END--------------------------------------------------
 
         //--------------------------------Student ViewModel-----------------------------------------
@@ -336,5 +337,14 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
         outState.putString("reply_text14",mPermRBS);
         //-----------------------------------------END----------------------------------------------
     }
-    //----------------------------------------END---------------------------------------------------
+    //-------------------------------------------END------------------------------------------------
+
+    //------------------------------------CODE FOR SIGN OUT-----------------------------------------
+    public void signout(View view){
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(StudentForm.this,Login.class);
+        startActivity(intent);
+        finish();
+    }
+    //-------------------------------------------END------------------------------------------------
 }
