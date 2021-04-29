@@ -251,12 +251,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:onClick="signout"
-        android:text="Signout"
+        android:text="@string/signout_button"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/button_lang"
         app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SmallSp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">শিক্ষার্থী সাইনআপ অ্যাপ V2</string>
+    <string name="app_name">শিক্ষার্থী সাইনআপ অ্যাপ ভি২</string>
     <string name="label_search">অনুসন্ধান</string>
     <string name="label_student_list">ছাত্র তালিকা</string>
     <string name="label_address">ঠিকানা</string>
@@ -48,4 +48,13 @@
     <string name="button_language">ভাষা</string>
     <string name="search_hint">অনুসন্ধান করুন…</string>
     <string name="select_language">ভাষা নির্বাচন করুন</string>
-</resources>
+    <string name="user_id_editText">শিক্ষার্থী আইডি (৭ সংখ্যা)</string>
+    <string name="student_id_textView">শিক্ষার্থী আইডি</string>
+    <string name="student_email_textView">ইমেল</string>
+    <string name="student_password_editText">পাসওয়ার্ড</string>
+    <string name="login_button">প্রবেশ করুন</string>
+    <string name="register_button">নিবন্ধন</string>
+    <string name="register_message">অ্যাকাউন্ট নেই?</string>
+    <string name="register_intent_button">নিবন্ধন</string>
+    <string name="signout_button">সাইন আউট</string>
+    </resources>

@@ -5,8 +5,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +30,8 @@ import com.example.studentsignupappv2.datascource.SharedPrefManager;
 import com.example.studentsignupappv2.datascource.StudentEntity;
 import com.example.studentsignupappv2.viewmodel.StudentViewModel;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Locale;
 
 public class StudentForm extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Spinner schoolSpinner;
@@ -46,13 +53,12 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale();
         setContentView(R.layout.activity_student_form);
+
 
         pref = new SharedPrefManager(this);
 
-
-        /*loadLocale();
-        setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getResources().getString(R.string.app_name));
 
@@ -64,7 +70,7 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
                 showLanguageSelectDialog();
             }
         });
-        //----------------------------------------END-----------------------------------------------*/
+        //----------------------------------------END-----------------------------------------------
 
         //----------------------------CODE FOR STUDENT NAME & ID------------------------------------
         studentName = findViewById(R.id.student_name_editText);
@@ -316,6 +322,15 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
         student.setPerm_rbs(mPermRBS);
 
         studentViewModel.insert(student);
+
+        studentName.setText("");
+        studentID.setText("");
+        schoolSpinner.setSelection(0);
+        departmentSpinner.setSelection(0);
+        dateOfBirth.setText("");
+        phoneNumber.setText("");
+        NID.setText("");
+
         Toast.makeText(getApplicationContext(),R.string.save_data,Toast.LENGTH_LONG).show();
     }
     //------------------------------------------END-------------------------------------------------
@@ -379,6 +394,52 @@ public class StudentForm extends AppCompatActivity implements AdapterView.OnItem
         Intent intent = new Intent(StudentForm.this,Login.class);
         startActivity(intent);
         finish();
+    }
+    //-------------------------------------------END------------------------------------------------
+
+
+    //-----------------------------------CODE FOR LANGUAGE SETTINGS---------------------------------
+    private void showLanguageSelectDialog() {
+        final String[] listItems = {getResources().getString(R.string.english),getResources().getString(R.string.bangla)};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(StudentForm.this);
+        mBuilder.setTitle(R.string.select_language);
+        mBuilder.setSingleChoiceItems(listItems,-1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                if(i == 0){
+                    setLocale("en");
+                    recreate();
+                }
+                else if(i == 1){
+                    setLocale("bn");
+                    recreate();
+                }
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
+
+
+    }
+
+
+    private void setLocale(String s) {
+        Locale locale = new Locale(s);
+        Locale.setDefault(locale);
+        Configuration config =  new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings",MODE_PRIVATE).edit();
+        editor.putString("App_Lang",s);
+        editor.apply();
+    }
+
+    public void loadLocale(){
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("App_Lang","");
+        setLocale(language);
     }
     //-------------------------------------------END------------------------------------------------
 }
