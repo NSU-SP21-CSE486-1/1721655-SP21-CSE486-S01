@@ -11,4 +11,6 @@
     <string name="nid">NID</string>
     <string name="enter_nid">Enter NID</string>
     <string name="submit">Submit</string>
+    <string name="password">Password</string>
+    <string name="enter_password_8_characters">Enter Password (8 Characters)</string>
 </resources>

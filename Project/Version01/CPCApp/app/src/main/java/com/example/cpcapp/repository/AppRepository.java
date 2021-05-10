@@ -1,13 +1,18 @@
 package com.example.cpcapp.repository;
 
-import androidx.annotation.NonNull;
 
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+import com.example.cpcapp.datasource.StudentInfoAPI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppRepository {
 
@@ -15,12 +20,19 @@ public class AppRepository {
     private final FirebaseDatabase firebaseRef;
     private final FirebaseAuth firebaseAuth;
     private final DatabaseReference dbRef;
-    private boolean check ;
+    private boolean check2;
+
+    private List<StudentInfoAPI> mAllStudent;
+    private MutableLiveData<List<StudentInfoAPI>> mStudents;
+    private String tag = AppRepository.class.getSimpleName();
 
     public AppRepository(){
+        mAllStudent = new ArrayList<>();
+        mStudents = new MutableLiveData<>();
         firebaseRef = FirebaseDatabase.getInstance();
         dbRef = firebaseRef.getReference("students");
         firebaseAuth = FirebaseAuth.getInstance();
+
     }
 
     public static AppRepository getInstance(){
@@ -30,34 +42,28 @@ public class AppRepository {
         return instance;
     }
 
-    private boolean checkStudent(String fullName,String nsuId,String nsuEmail,String dob,String nid){
-      dbRef.addValueEventListener(new ValueEventListener() {
-          @Override
-          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+   public DatabaseReference getDbRef(){
+        return dbRef;
+   }
 
-              for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                 if(snapshot.child("student_name").getValue().toString() == fullName &&
-                    snapshot.child("student_nsu_id").getValue().toString() == nsuId &&
-                    snapshot.child("student_nsu_email").getValue().toString() == nsuEmail &&
-                    snapshot.child("student_dob").getValue().toString() == dob &&
-                    snapshot.child("student_nid").getValue().toString() == nid){
 
-                     check = true;
-                 }else{
-                     check = false;
-                 }
-              }
 
-          }
+    public boolean registerStudent(String email, String password){
+        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    check2 = true;
+                }else{
+                    check2 = false;
+                }
+            }
+        });
 
-          @Override
-          public void onCancelled(@NonNull DatabaseError error) {
+        return check2;
 
-          }
-      });
-
-      return check;
     }
 
 
 }
+

@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.view.WindowManager;
 
 import com.example.cpcapp.ui.Home;
+import com.example.cpcapp.ui.Registration;
 
 public class MainActivity extends AppCompatActivity {
     private static int TIME = 3000;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler(Looper.myLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(),Home.class);
+                Intent intent = new Intent(getApplicationContext(),Registration.class);
                 startActivity(intent);
                 finish();
             }
