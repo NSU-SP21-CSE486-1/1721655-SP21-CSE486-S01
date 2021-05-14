@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "1043826339422",
-    "project_id": "the-cpc-app",
-    "storage_bucket": "the-cpc-app.appspot.com"
+    "project_number": "814682760521",
+    "project_id": "cpc-app-a623b",
+    "storage_bucket": "cpc-app-a623b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1043826339422:android:5683569ee438f99caacecf",
+        "mobilesdk_app_id": "1:814682760521:android:68e815b76e58b7a91ca698",
         "android_client_info": {
           "package_name": "com.example.cpcapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1043826339422-1ekl9timk1dh0tvesll6ri07siqj0vvu.apps.googleusercontent.com",
+          "client_id": "814682760521-7vsj951t2kaq9fjql6htqe3e67un20kl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.cpcapp",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "1043826339422-45kuoje4dkliniaadud9qcs6op1093pn.apps.googleusercontent.com",
+          "client_id": "814682760521-ec19ajeor8a4k9hspsoq1r5brk9lj55d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAFI5ibRy3o0Qi07o2hs4q7n_JyWGX4E_c"
+          "current_key": "AIzaSyBkqPE2Rz574h2nI0ooBxXPOG_70UZB0o0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1043826339422-45kuoje4dkliniaadud9qcs6op1093pn.apps.googleusercontent.com",
+              "client_id": "814682760521-ec19ajeor8a4k9hspsoq1r5brk9lj55d.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
