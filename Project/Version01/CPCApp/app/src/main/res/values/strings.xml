@@ -13,4 +13,27 @@
     <string name="submit">Submit</string>
     <string name="password">Password</string>
     <string name="enter_password_8_characters">Enter Password (8 Characters)</string>
+    <string name="enter_school_name">Enter school name</string>
+    <string name="school">School</string>
+    <string name="enter_department_name">Enter department name</string>
+    <string name="department">Department</string>
+    <string name="phone">Phone</string>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="personal_email">Personal Email</string>
+    <string name="enter_personal_email">Enter personal email</string>
+    <string name="enter_country_name">Enter country name</string>
+    <string name="country">Country</string>
+    <string name="district">District</string>
+    <string name="enter_district_name">Enter district name</string>
+    <string name="enter_post_office">Enter post office</string>
+    <string name="post_office">Post Office</string>
+    <string name="enter_police_station">Enter police station</string>
+    <string name="police_station">Police Station</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="enter_postal_code">Enter postal code</string>
+    <string name="enter_house_village_city">Enter House/Village/City</string>
+    <string name="house_village_city">House/Village/City</string>
+    <string name="road_block_sector">Road/Block/Sector</string>
+    <string name="enter_road_block_sector">Enter Road/Block/Sector</string>
+    <string name="update">Update</string>
 </resources>
