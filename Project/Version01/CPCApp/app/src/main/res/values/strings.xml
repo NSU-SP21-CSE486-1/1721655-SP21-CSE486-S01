@@ -36,4 +36,5 @@
     <string name="road_block_sector">Road/Block/Sector</string>
     <string name="enter_road_block_sector">Enter Road/Block/Sector</string>
     <string name="update">Update</string>
+    <string name="login">Login</string>
 </resources>
