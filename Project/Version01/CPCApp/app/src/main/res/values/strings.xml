@@ -37,4 +37,6 @@
     <string name="enter_road_block_sector">Enter Road/Block/Sector</string>
     <string name="update">Update</string>
     <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="dont_t_have_an_account">Dont\'t have an account?</string>
 </resources>
