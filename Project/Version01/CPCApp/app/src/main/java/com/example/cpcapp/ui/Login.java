@@ -49,7 +49,7 @@ public class Login extends AppCompatActivity {
 
     }
 
-    public void Login(View view) {
+    public void LoginUser(View view) {
 
         firebaseAuth.signInWithEmailAndPassword(nsuEmail.getText().toString(),mPassword.getText().toString())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

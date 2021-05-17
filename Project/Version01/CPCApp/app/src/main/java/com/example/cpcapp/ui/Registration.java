@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.QuickContactBadge;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cpcapp.R;
@@ -34,6 +36,7 @@ import java.util.Objects;
 public class Registration extends AppCompatActivity {
 
     private EditText regFullName, regNsuId, regNsuEmail, regDob, regNid, regPassword;
+    private TextView mLogin;
     private Button regSubmitButton;
     private AppViewModel appViewModel;
     private boolean check;
@@ -55,9 +58,18 @@ public class Registration extends AppCompatActivity {
         regDob = findViewById(R.id.reg_dob_editText);
         regNid = findViewById(R.id.reg_nid_editText);
         regPassword = findViewById(R.id.reg_password_editText);
+        mLogin = findViewById(R.id.reg_login_textView);
 
         regSubmitButton = findViewById(R.id.reg_submit_button);
         firebaseAuth = appViewModel.getAuthRef();
+
+        mLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Login.class));
+                finish();
+            }
+        });
 
 
     }
@@ -86,7 +98,8 @@ public class Registration extends AppCompatActivity {
             }
 
             if (check) {
-                   firebaseAuth.createUserWithEmailAndPassword(regNsuEmail.getText().toString(), regPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                   firebaseAuth.createUserWithEmailAndPassword(regNsuEmail.getText().toString(), regPassword.getText().toString())
+                           .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                        @Override
                        public void onComplete(@NonNull  Task<AuthResult> task) {
                            if (task.isSuccessful()) {
