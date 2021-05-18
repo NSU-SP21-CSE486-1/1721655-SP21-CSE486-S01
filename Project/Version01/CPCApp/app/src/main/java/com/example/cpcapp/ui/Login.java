@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cpcapp.R;
+import com.example.cpcapp.datasource.SharedPrefManager;
 import com.example.cpcapp.viewmodel.AppViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +25,7 @@ public class Login extends AppCompatActivity {
     private TextView mRegister;
     private AppViewModel appViewModel;
     private FirebaseAuth firebaseAuth;
+    private SharedPrefManager pref;
 
 
     @Override
@@ -32,6 +34,11 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         appViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(this.getApplication())).get(AppViewModel.class);
+
+        pref = new SharedPrefManager(Login.this);
+        if(pref.checkLogin()){
+            startActivity(new Intent(Login.this,Home.class));
+        }
 
         nsuEmail = findViewById(R.id.log_nsu_email_editText);
         mPassword = findViewById(R.id.log_password_editText);
@@ -50,7 +57,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void LoginUser(View view) {
-
+        pref.userLogin(nsuEmail.getText().toString(),mPassword.getText().toString());
         firebaseAuth.signInWithEmailAndPassword(nsuEmail.getText().toString(),mPassword.getText().toString())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
