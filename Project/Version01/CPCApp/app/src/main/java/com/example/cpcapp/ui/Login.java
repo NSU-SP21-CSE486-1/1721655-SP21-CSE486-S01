@@ -38,6 +38,7 @@ public class Login extends AppCompatActivity {
         pref = new SharedPrefManager(Login.this);
         if(pref.checkLogin()){
             startActivity(new Intent(Login.this,Home.class));
+            finish();
         }
 
         nsuEmail = findViewById(R.id.log_nsu_email_editText);

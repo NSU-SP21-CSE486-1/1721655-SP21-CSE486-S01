@@ -43,4 +43,7 @@
     <string name="home">Home</string>
     <string name="notice_board">Notice Board</string>
     <string name="logout">Logout</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="profile">Profile</string>
 </resources>
