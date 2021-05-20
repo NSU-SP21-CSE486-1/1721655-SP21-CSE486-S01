@@ -26,6 +26,11 @@ public class SharedPrefManager {
 
         editor.apply();
     }
+    public String getEmail(){
+        String email;
+        email = sharedPreferences.getString(KEY_EMAIL,"");
+        return email;
+    }
 
     public void logout() {
         editor.clear();
