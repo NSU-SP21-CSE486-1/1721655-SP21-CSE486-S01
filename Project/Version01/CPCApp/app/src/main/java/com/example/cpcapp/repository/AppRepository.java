@@ -75,7 +75,9 @@ public class AppRepository {
    }
 
 
-
+    public void insertStudent(StudentInfoAPI studentInfo){
+        dbRef.child(studentInfo.getStudent_id()).setValue(studentInfo);
+    }
 
 
 

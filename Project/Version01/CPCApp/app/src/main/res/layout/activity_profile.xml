@@ -425,6 +425,7 @@
                 android:layout_marginTop="60dp"
                 android:layout_marginRight="80dp"
                 android:layout_marginBottom="40dp"
+                android:onClick="update"
                 android:text="@string/update"
                 app:backgroundTint="#2DA3E3" />
 

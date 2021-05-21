@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.cpcapp.R;
 import com.example.cpcapp.datasource.SharedPrefManager;
@@ -38,8 +40,8 @@ public class Profile extends AppCompatActivity {
     private String pres_hvc;
     private String pres_rbs;
 
-    EditText mStudent_name,mStudent_id,mStudent_nsu_email,mStudent_school,mStudent_department,mStudent_dob,mStudent_phone,
-            mStudent_personal_email,mStudent_nid,mPres_country,mPres_district,mPres_post_office,mPres_police_station,mPres_postal_code,mPres_hvc,mPres_rds;
+    EditText mStudent_name,mStudent_id,mStudent_school,mStudent_department,mStudent_dob,mStudent_phone,
+            mStudent_personal_email,mStudent_nid,mPres_country,mPres_district,mPres_post_office,mPres_police_station,mPres_postal_code,mPres_hvc,mPres_rbs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class Profile extends AppCompatActivity {
         mPres_police_station = findViewById(R.id.prof_pres_police_station_editText);
         mPres_postal_code = findViewById(R.id.prof_pres_postal_code_editText);
         mPres_hvc = findViewById(R.id.prof_pres_hvc_editText);
-        mPres_rds = findViewById(R.id.prof_pres_rbs_editText);
+        mPres_rbs = findViewById(R.id.prof_pres_rbs_editText);
 
 
 
@@ -87,7 +89,7 @@ public class Profile extends AppCompatActivity {
         mPres_police_station.setText(pres_police_station);
         mPres_postal_code.setText(pres_postal_code);
         mPres_hvc.setText(pres_hvc);
-        mPres_rds.setText(pres_rbs);
+        mPres_rbs.setText(pres_rbs);
 
     }
 
@@ -117,8 +119,30 @@ public class Profile extends AppCompatActivity {
             }
         }
     }
+    
 
 
+    public void update(View view) {
+        StudentInfoAPI studentInfo = new StudentInfoAPI();
+        studentInfo.setStudent_name(mStudent_name.getText().toString());
+        studentInfo.setStudent_id(mStudent_id.getText().toString());
+        studentInfo.setStudent_nsu_email(student_nsu_email);
+        studentInfo.setStudent_school(mStudent_school.getText().toString());
+        studentInfo.setStudent_department(mStudent_department.getText().toString());
+        studentInfo.setStudent_dob(mStudent_dob.getText().toString());
+        studentInfo.setStudent_phone(mStudent_phone.getText().toString());
+        studentInfo.setStudent_personal_email(mStudent_personal_email.getText().toString());
+        studentInfo.setStudent_nid(mStudent_nid.getText().toString());
+        studentInfo.setPres_country(mPres_country.getText().toString());
+        studentInfo.setPres_district(mPres_district.getText().toString());
+        studentInfo.setPres_post_office(mPres_post_office.getText().toString());
+        studentInfo.setPres_police_station(mPres_police_station.getText().toString());
+        studentInfo.setPres_postal_code(mPres_postal_code.getText().toString());
+        studentInfo.setPres_hvc(mPres_hvc.getText().toString());
+        studentInfo.setPres_rbs(mPres_rbs.getText().toString());
 
+        appViewModel.insertStudent(studentInfo);
 
+        Toast.makeText(getApplicationContext(),"Profile Updated.",Toast.LENGTH_SHORT).show();
+    }
 }

@@ -44,6 +44,8 @@ public class AppViewModel extends AndroidViewModel {
         return arrayList;
     }
 
+
+
     public DatabaseReference getDbRef(){
 
         return dbRef;
@@ -51,6 +53,10 @@ public class AppViewModel extends AndroidViewModel {
 
     public FirebaseAuth getAuthRef(){
         return firebaseAuth;
+    }
+
+    public void insertStudent(StudentInfoAPI studentInfo){
+        appRepository.insertStudent(studentInfo);
     }
 
 
