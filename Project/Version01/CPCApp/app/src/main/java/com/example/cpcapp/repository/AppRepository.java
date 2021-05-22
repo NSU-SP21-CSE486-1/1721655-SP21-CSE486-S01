@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class AppRepository {
     private final FirebaseDatabase firebaseRef;
     private final FirebaseAuth firebaseAuth;
     private final DatabaseReference dbRef;
+    private final StorageReference storageReference;
 
 
     private final ArrayList<StudentInfoAPI> mAllStudent;
@@ -37,6 +40,7 @@ public class AppRepository {
         firebaseRef = FirebaseDatabase.getInstance();
         dbRef = firebaseRef.getReference("students");
         firebaseAuth = FirebaseAuth.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference();
 
     }
 
@@ -75,6 +79,9 @@ public class AppRepository {
    }
 
 
+    public StorageReference pdfStore(){
+        return storageReference.child("resume"+System.currentTimeMillis()+".pdf");
+    }
     public void insertStudent(StudentInfoAPI studentInfo){
         dbRef.child(studentInfo.getStudent_id()).setValue(studentInfo);
     }

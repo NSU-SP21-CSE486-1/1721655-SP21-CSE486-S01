@@ -429,6 +429,28 @@
                 android:text="@string/update"
                 app:backgroundTint="#2DA3E3" />
 
+            <EditText
+                android:id="@+id/pdf_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+                android:ems="10"
+                android:inputType="text"
+                android:text="@string/select_pdf_file"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/pdf_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="70dp"
+                android:background="#2DA3E3"
+                android:hint="@string/upload_file" />
+
 
         </LinearLayout>
     </ScrollView>

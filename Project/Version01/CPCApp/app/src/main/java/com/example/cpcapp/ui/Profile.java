@@ -42,6 +42,7 @@ public class Profile extends AppCompatActivity {
 
     EditText mStudent_name,mStudent_id,mStudent_school,mStudent_department,mStudent_dob,mStudent_phone,
             mStudent_personal_email,mStudent_nid,mPres_country,mPres_district,mPres_post_office,mPres_police_station,mPres_postal_code,mPres_hvc,mPres_rbs;
+    EditText pdfUpload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class Profile extends AppCompatActivity {
         mPres_hvc = findViewById(R.id.prof_pres_hvc_editText);
         mPres_rbs = findViewById(R.id.prof_pres_rbs_editText);
 
+        pdfUpload =findViewById(R.id.pdf_editText);
 
 
         arrayList = new ArrayList<>();
@@ -119,8 +121,6 @@ public class Profile extends AppCompatActivity {
             }
         }
     }
-    
-
 
     public void update(View view) {
         StudentInfoAPI studentInfo = new StudentInfoAPI();
