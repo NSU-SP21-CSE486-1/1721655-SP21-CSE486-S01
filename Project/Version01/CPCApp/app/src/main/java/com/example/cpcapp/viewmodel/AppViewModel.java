@@ -19,7 +19,7 @@ import java.util.List;
 public class AppViewModel extends AndroidViewModel {
 
     private final AppRepository appRepository;
-    private DatabaseReference dbRef;
+    private DatabaseReference dbRef,pdfDbRef;
     private ArrayList<StudentInfoAPI> arrayList;
     private FirebaseAuth firebaseAuth;
     private StorageReference storageReference;
@@ -44,6 +44,17 @@ public class AppViewModel extends AndroidViewModel {
     public DatabaseReference getDbRef(){
 
         return dbRef;
+    }
+
+    public void initPdfDbRef(){
+        if(pdfDbRef != null){
+            return;
+        }
+        pdfDbRef = appRepository.getPdfDbRef();
+    }
+
+    public DatabaseReference getPdfDbRef(){
+        return pdfDbRef;
     }
 
     public ArrayList<StudentInfoAPI> getStudentData(){

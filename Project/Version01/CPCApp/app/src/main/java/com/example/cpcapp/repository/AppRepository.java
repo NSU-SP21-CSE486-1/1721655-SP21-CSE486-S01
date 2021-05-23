@@ -27,6 +27,7 @@ public class AppRepository {
     private final FirebaseDatabase firebaseRef;
     private final FirebaseAuth firebaseAuth;
     private final DatabaseReference dbRef;
+    private final DatabaseReference pdfDbRef;
     private final StorageReference storageReference;
 
 
@@ -39,6 +40,7 @@ public class AppRepository {
         mStudents = new MutableLiveData<>();
         firebaseRef = FirebaseDatabase.getInstance();
         dbRef = firebaseRef.getReference("students");
+        pdfDbRef = firebaseRef.getReference("resume");
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -54,6 +56,7 @@ public class AppRepository {
    public DatabaseReference getDbRef(){
         return dbRef;
    }
+   public DatabaseReference getPdfDbRef(){return pdfDbRef;}
    public FirebaseAuth getAuthRef(){return firebaseAuth;}
 
    public ArrayList<StudentInfoAPI> getStudentData(){

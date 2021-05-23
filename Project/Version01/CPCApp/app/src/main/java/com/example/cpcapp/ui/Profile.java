@@ -1,17 +1,30 @@
 package com.example.cpcapp.ui;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.cpcapp.R;
+import com.example.cpcapp.datasource.PDFData;
 import com.example.cpcapp.datasource.SharedPrefManager;
 import com.example.cpcapp.datasource.StudentInfoAPI;
 import com.example.cpcapp.viewmodel.AppViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
@@ -39,6 +52,11 @@ public class Profile extends AppCompatActivity {
     private String pres_postal_code;
     private String pres_hvc;
     private String pres_rbs;
+
+    private StorageReference storageReference;
+    private DatabaseReference  pdfDbRef;
+
+    private Button uploadBtn;
 
     EditText mStudent_name,mStudent_id,mStudent_school,mStudent_department,mStudent_dob,mStudent_phone,
             mStudent_personal_email,mStudent_nid,mPres_country,mPres_district,mPres_post_office,mPres_police_station,mPres_postal_code,mPres_hvc,mPres_rbs;
@@ -68,9 +86,6 @@ public class Profile extends AppCompatActivity {
         mPres_hvc = findViewById(R.id.prof_pres_hvc_editText);
         mPres_rbs = findViewById(R.id.prof_pres_rbs_editText);
 
-        pdfUpload =findViewById(R.id.pdf_editText);
-
-
         arrayList = new ArrayList<>();
         pref = new SharedPrefManager(Profile.this);
         userEmail = pref.getEmail();
@@ -92,6 +107,83 @@ public class Profile extends AppCompatActivity {
         mPres_postal_code.setText(pres_postal_code);
         mPres_hvc.setText(pres_hvc);
         mPres_rbs.setText(pres_rbs);
+
+        pdfUpload = findViewById(R.id.pdf_editText);
+        appViewModel.initStorageRef();
+        storageReference = appViewModel.getStorageReference();
+        appViewModel.initPdfDbRef();
+        pdfDbRef = appViewModel.getPdfDbRef();
+
+        uploadBtn = findViewById(R.id.pdf_button);
+        uploadBtn.setEnabled(false);
+
+        pdfUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectPDF();
+            }
+        });
+
+    }
+
+    //Select PDF File.
+    private void selectPDF() {
+        Intent pdfIntent = new Intent();
+        pdfIntent.setType("application/pdf");
+        pdfIntent.setAction(pdfIntent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(pdfIntent,"SELECT PDF FILE"),10);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 10 && resultCode == RESULT_OK && data != null && data.getData() != null){
+
+            uploadBtn.setEnabled(true);
+            pdfUpload.setText(data.getDataString().substring(data
+                    .getDataString().lastIndexOf("/") + 1));
+            uploadBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   uploadPDFFile(data.getData());
+                }
+            });
+
+
+        }
+    }
+
+    //Upload PDF File To Firebase and Store Info in Realtime Database.
+    private void uploadPDFFile(Uri data) {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("File is uploading....");
+        progressDialog.show();
+
+        storageReference.putFile(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                while(!uriTask.isComplete());
+                Uri uri = uriTask.getResult();
+
+                PDFData pdfData = new PDFData(student_nsu_email,uri.toString());
+                pdfDbRef.child(student_id).setValue(pdfData);
+
+                Toast.makeText(Profile.this, "Uploaded.", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                double progress = (100.0* snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
+                progressDialog.setMessage("File Uploaded.." + (int) progress + "%");
+
+            }
+        });
+
 
     }
 
