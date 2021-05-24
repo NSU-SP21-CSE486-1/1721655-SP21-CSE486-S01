@@ -179,7 +179,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
                 double progress = (100.0* snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
-                progressDialog.setMessage("File Uploaded.." + (int) progress + "%");
+                progressDialog.setMessage("File Uploading.." + (int) progress + "%");
 
             }
         });

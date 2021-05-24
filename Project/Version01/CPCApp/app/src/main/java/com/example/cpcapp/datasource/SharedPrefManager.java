@@ -9,6 +9,7 @@ public class SharedPrefManager {
     Context mContext;
 
     public static final String IS_LOGIN = "isLoggedIn";
+    public static final String IS_ADMIN = "isAdmin";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_PASSWORD = "password";
 
@@ -26,6 +27,13 @@ public class SharedPrefManager {
 
         editor.apply();
     }
+
+    public void adminLogin(String email){
+        editor.putBoolean(IS_ADMIN,true);
+        editor.putString(KEY_EMAIL,email);
+
+        editor.apply();
+    }
     public String getEmail(){
         String email;
         email = sharedPreferences.getString(KEY_EMAIL,"");
@@ -37,9 +45,9 @@ public class SharedPrefManager {
         editor.apply();
     }
 
-    public boolean checkLogin() {
-        return sharedPreferences.getBoolean(IS_LOGIN, false);
-    }
+    public boolean checkLogin() { return sharedPreferences.getBoolean(IS_LOGIN, false); }
+    public boolean checkAdmin() {return sharedPreferences.getBoolean(IS_ADMIN,true);}
+
 
 
 }

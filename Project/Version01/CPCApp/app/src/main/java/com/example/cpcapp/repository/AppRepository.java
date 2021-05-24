@@ -26,19 +26,19 @@ public class AppRepository {
     private static AppRepository instance;
     private final FirebaseDatabase firebaseRef;
     private final FirebaseAuth firebaseAuth;
-    private final DatabaseReference dbRef;
+    private final DatabaseReference dbRef,adminDbRef;
     private final DatabaseReference pdfDbRef;
     private final StorageReference storageReference;
 
 
+    private final ArrayList<String> mAdminData;
     private final ArrayList<StudentInfoAPI> mAllStudent;
-    private final MutableLiveData<List<StudentInfoAPI>> mStudents;
-    private boolean check2;
 
     public AppRepository(){
         mAllStudent = new ArrayList<>();
-        mStudents = new MutableLiveData<>();
+        mAdminData = new ArrayList<>();
         firebaseRef = FirebaseDatabase.getInstance();
+        adminDbRef = firebaseRef.getReference("admin");
         dbRef = firebaseRef.getReference("students");
         pdfDbRef = firebaseRef.getReference("resume");
         firebaseAuth = FirebaseAuth.getInstance();
@@ -58,6 +58,26 @@ public class AppRepository {
    }
    public DatabaseReference getPdfDbRef(){return pdfDbRef;}
    public FirebaseAuth getAuthRef(){return firebaseAuth;}
+   public ArrayList<String> getAdminData(){
+        adminDbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    mAdminData.clear();
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        mAdminData.add(dataSnapshot.getValue(String.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return mAdminData;
+   }
 
    public ArrayList<StudentInfoAPI> getStudentData(){
        dbRef.addValueEventListener(new ValueEventListener() {

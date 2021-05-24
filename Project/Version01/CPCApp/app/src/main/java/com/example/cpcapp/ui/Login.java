@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 public class Login extends AppCompatActivity {
 
     private EditText nsuEmail,mPassword;
@@ -26,20 +28,33 @@ public class Login extends AppCompatActivity {
     private AppViewModel appViewModel;
     private FirebaseAuth firebaseAuth;
     private SharedPrefManager pref;
+    private ArrayList<String> adminData;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        pref = new SharedPrefManager(Login.this);
+
+        if(pref.checkAdmin()){
+            startActivity(new Intent(Login.this,DashBoard.class));
+            finish();
+        }
+        if(pref.checkLogin()) {
+            startActivity(new Intent(Login.this, Home.class));
+            finish();
+
+        }
         appViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(this.getApplication())).get(AppViewModel.class);
 
-        pref = new SharedPrefManager(Login.this);
-        if(pref.checkLogin()){
-            startActivity(new Intent(Login.this,Home.class));
-            finish();
-        }
+
+
+        adminData = appViewModel.getAdminData();
+
+
 
         nsuEmail = findViewById(R.id.log_nsu_email_editText);
         mPassword = findViewById(R.id.log_password_editText);
@@ -58,6 +73,16 @@ public class Login extends AppCompatActivity {
     }
 
     public void LoginUser(View view) {
+
+
+        for(String data: adminData){
+            if(data.contains(nsuEmail.getText().toString())){
+                pref.adminLogin(nsuEmail.getText().toString());
+                Toast.makeText(getApplicationContext(), "Login Successful!!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), DashBoard.class));
+                finish();
+            }
+        }
         pref.userLogin(nsuEmail.getText().toString(),mPassword.getText().toString());
         firebaseAuth.signInWithEmailAndPassword(nsuEmail.getText().toString(),mPassword.getText().toString())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
