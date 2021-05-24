@@ -6,12 +6,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cpcapp.R;
+import com.example.cpcapp.datasource.AdminData;
 import com.example.cpcapp.datasource.SharedPrefManager;
 import com.example.cpcapp.viewmodel.AppViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,8 +30,8 @@ public class Login extends AppCompatActivity {
     private AppViewModel appViewModel;
     private FirebaseAuth firebaseAuth;
     private SharedPrefManager pref;
-    private ArrayList<String> adminData;
-
+    private ArrayList<AdminData> adminData;
+    private boolean check;
 
 
     @Override
@@ -74,27 +76,30 @@ public class Login extends AppCompatActivity {
 
     public void LoginUser(View view) {
 
-
-        for(String data: adminData){
-            if(data.contains(nsuEmail.getText().toString())){
-                pref.adminLogin(nsuEmail.getText().toString());
+            for (AdminData adminData : adminData) {
+                check = adminData.getEmail().equals(nsuEmail.getText().toString()) && adminData.getPassword().equals(mPassword.getText().toString());
+                break;
+            }
+            if (check) {
+                pref.adminLogin(nsuEmail.getText().toString(), mPassword.getText().toString());
                 Toast.makeText(getApplicationContext(), "Login Successful!!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), DashBoard.class));
                 finish();
-            }
-        }
-        pref.userLogin(nsuEmail.getText().toString(),mPassword.getText().toString());
-        firebaseAuth.signInWithEmailAndPassword(nsuEmail.getText().toString(),mPassword.getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "Login Successful!!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), Home.class));
-                    finish();
-                }
-            }
-        });
+            } else {
+                firebaseAuth.signInWithEmailAndPassword(nsuEmail.getText().toString(), mPassword.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    pref.userLogin(nsuEmail.getText().toString(), mPassword.getText().toString());
+                                    Toast.makeText(getApplicationContext(), "Login Successful!!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), Home.class));
+                                    finish();
+                                }
+                            }
+                        });
+             }
+          }
+        
 
-    }
 }

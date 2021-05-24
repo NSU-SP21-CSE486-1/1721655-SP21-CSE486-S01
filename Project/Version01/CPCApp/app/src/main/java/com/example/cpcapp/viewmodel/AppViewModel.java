@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.cpcapp.datasource.AdminData;
 import com.example.cpcapp.datasource.StudentInfoAPI;
 import com.example.cpcapp.repository.AppRepository;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +22,7 @@ public class AppViewModel extends AndroidViewModel {
     private final AppRepository appRepository;
     private DatabaseReference dbRef,pdfDbRef;
     private ArrayList<StudentInfoAPI> arrayList;
-    private ArrayList<String> adminData;
+    private ArrayList<AdminData> adminData;
     private FirebaseAuth firebaseAuth;
     private StorageReference storageReference;
 
@@ -64,7 +65,7 @@ public class AppViewModel extends AndroidViewModel {
         return arrayList;
     }
 
-    public ArrayList<String> getAdminData(){
+    public ArrayList<AdminData> getAdminData(){
         return adminData;
     }
 

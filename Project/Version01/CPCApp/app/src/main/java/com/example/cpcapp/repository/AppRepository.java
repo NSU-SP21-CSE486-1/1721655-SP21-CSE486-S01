@@ -4,6 +4,8 @@ package com.example.cpcapp.repository;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.cpcapp.datasource.AdminData;
 import com.example.cpcapp.datasource.StudentInfoAPI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,7 +33,7 @@ public class AppRepository {
     private final StorageReference storageReference;
 
 
-    private final ArrayList<String> mAdminData;
+    private final ArrayList<AdminData> mAdminData;
     private final ArrayList<StudentInfoAPI> mAllStudent;
 
     public AppRepository(){
@@ -58,14 +60,14 @@ public class AppRepository {
    }
    public DatabaseReference getPdfDbRef(){return pdfDbRef;}
    public FirebaseAuth getAuthRef(){return firebaseAuth;}
-   public ArrayList<String> getAdminData(){
+   public ArrayList<AdminData> getAdminData(){
         adminDbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
                     mAdminData.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        mAdminData.add(dataSnapshot.getValue(String.class));
+                        mAdminData.add(dataSnapshot.getValue(AdminData.class));
                     }
                 }
             }

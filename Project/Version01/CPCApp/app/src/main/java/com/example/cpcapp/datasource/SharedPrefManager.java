@@ -28,9 +28,10 @@ public class SharedPrefManager {
         editor.apply();
     }
 
-    public void adminLogin(String email){
+    public void adminLogin(String email,String password){
         editor.putBoolean(IS_ADMIN,true);
         editor.putString(KEY_EMAIL,email);
+        editor.putString(KEY_PASSWORD,password);
 
         editor.apply();
     }
@@ -46,7 +47,7 @@ public class SharedPrefManager {
     }
 
     public boolean checkLogin() { return sharedPreferences.getBoolean(IS_LOGIN, false); }
-    public boolean checkAdmin() {return sharedPreferences.getBoolean(IS_ADMIN,true);}
+    public boolean checkAdmin() {return sharedPreferences.getBoolean(IS_ADMIN,false);}
 
 
 

@@ -53,6 +53,7 @@ public class Home extends AppCompatActivity {
                     case R.id.menu_home :
                         startActivity(new Intent(getApplicationContext(),Home.class));
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        finish();
                         break;
 
                     case R.id.menu_notice_board:
@@ -68,6 +69,7 @@ public class Home extends AppCompatActivity {
                         pref.logout();
                         startActivity(new Intent(getApplicationContext(),Login.class));
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        finish();
                         break;
 
 
