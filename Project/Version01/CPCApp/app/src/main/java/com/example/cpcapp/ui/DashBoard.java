@@ -81,6 +81,6 @@ public class DashBoard extends AppCompatActivity {
     }
 
     public void AddJob(View view) {
-
+        startActivity(new Intent(getApplicationContext(),AddJob.class));
     }
 }

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.cpcapp.datasource.AdminData;
+import com.example.cpcapp.datasource.JobPost;
 import com.example.cpcapp.datasource.StudentInfoAPI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,9 +29,9 @@ public class AppRepository {
     private static AppRepository instance;
     private final FirebaseDatabase firebaseRef;
     private final FirebaseAuth firebaseAuth;
-    private final DatabaseReference dbRef,adminDbRef;
+    private final DatabaseReference dbRef,adminDbRef,jobPostDbRef;
     private final DatabaseReference pdfDbRef;
-    private final StorageReference storageReference;
+    private final StorageReference storageReference,jobDescriptionRef;
 
 
     private final ArrayList<AdminData> mAdminData;
@@ -43,8 +44,11 @@ public class AppRepository {
         adminDbRef = firebaseRef.getReference("admin");
         dbRef = firebaseRef.getReference("students");
         pdfDbRef = firebaseRef.getReference("resume");
+        jobPostDbRef = firebaseRef.getReference("job_posts");
+
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
+        jobDescriptionRef = FirebaseStorage.getInstance().getReference();
 
     }
 
@@ -55,12 +59,12 @@ public class AppRepository {
         return instance;
     }
 
-   public DatabaseReference getDbRef(){
-        return dbRef;
-   }
-   public DatabaseReference getPdfDbRef(){return pdfDbRef;}
-   public FirebaseAuth getAuthRef(){return firebaseAuth;}
-   public ArrayList<AdminData> getAdminData(){
+
+    public DatabaseReference getDbRef(){ return dbRef; }
+    public DatabaseReference getPdfDbRef(){return pdfDbRef;}
+    public FirebaseAuth getAuthRef(){return firebaseAuth;}
+
+    public ArrayList<AdminData> getAdminData(){
         adminDbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -107,8 +111,15 @@ public class AppRepository {
     public StorageReference pdfStore(){
         return storageReference.child("resume"+System.currentTimeMillis()+".pdf");
     }
+    public StorageReference storeRef(){
+        return jobDescriptionRef;
+    }
     public void insertStudent(StudentInfoAPI studentInfo){
         dbRef.child(studentInfo.getStudent_id()).setValue(studentInfo);
+    }
+
+    public void insertJobPost(JobPost jobPost){
+        jobPostDbRef.child(jobPost.getApplication_date()).setValue(jobPost);
     }
 
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.cpcapp.datasource.AdminData;
+import com.example.cpcapp.datasource.JobPost;
 import com.example.cpcapp.datasource.StudentInfoAPI;
 import com.example.cpcapp.repository.AppRepository;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,11 +21,12 @@ import java.util.List;
 public class AppViewModel extends AndroidViewModel {
 
     private final AppRepository appRepository;
-    private DatabaseReference dbRef,pdfDbRef;
+    private DatabaseReference dbRef,pdfDbRef,jobPostDbRef;
     private ArrayList<StudentInfoAPI> arrayList;
     private ArrayList<AdminData> adminData;
     private FirebaseAuth firebaseAuth;
     private StorageReference storageReference;
+    private StorageReference jobDescriptionRef;
 
     public AppViewModel(@NonNull Application application) {
         super(application);
@@ -32,6 +34,7 @@ public class AppViewModel extends AndroidViewModel {
         arrayList = appRepository.getStudentData();
         adminData = appRepository.getAdminData();
         firebaseAuth = appRepository.getAuthRef();
+
 
     }
 
@@ -80,7 +83,13 @@ public class AppViewModel extends AndroidViewModel {
         return storageReference;
     }
 
-
+    public void initJobDescriptionRef(){
+        if(jobDescriptionRef != null){
+            return;
+        }
+        jobDescriptionRef = appRepository.storeRef();
+    }
+    public StorageReference getJobDescriptionRef(){ return jobDescriptionRef;}
 
 
 
@@ -93,6 +102,9 @@ public class AppViewModel extends AndroidViewModel {
         appRepository.insertStudent(studentInfo);
     }
 
+    public void insertJobPost(JobPost jobPost){
+        appRepository.insertJobPost(jobPost);
+    }
 
 
 }
