@@ -53,4 +53,8 @@
     <string name="delete_job_post">Delete Job Post</string>
     <string name="add_event">Add Event</string>
     <string name="delete_event">Delete Event</string>
+    <string-array name="job_types">
+        <item>Internship</item>
+        <item>Full-Time</item>
+    </string-array>
 </resources>
