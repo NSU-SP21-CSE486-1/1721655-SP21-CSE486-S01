@@ -36,6 +36,7 @@ public class Home extends AppCompatActivity {
         navigationView = findViewById(R.id.home_nav_menu);
         drawerLayout = findViewById(R.id.home_drawer);
 
+
         actionBarDrawerToggle =
                 new ActionBarDrawerToggle(Home.this,drawerLayout,toolbar,
                         R.string.open,R.string.close);

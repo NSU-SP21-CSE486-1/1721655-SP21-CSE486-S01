@@ -23,14 +23,41 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <ImageView
+            android:id="@+id/imageView_notice_board"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="138dp"
+            android:layout_marginEnd="54dp"
+            app:srcCompat="@drawable/notice_board" />
+
+        <ImageView
+            android:id="@+id/imageView_events"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView_notice_board"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="47dp"
+            android:layout_marginTop="41dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="120dp"
+            app:srcCompat="@drawable/events" />
+
     </RelativeLayout>
+
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/home_nav_menu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/home_nav_menu"
-        app:menu="@menu/sidemenu"
+        android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        android:layout_gravity="start">
+        app:menu="@menu/sidemenu">
 
     </com.google.android.material.navigation.NavigationView>
 
