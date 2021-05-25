@@ -49,4 +49,8 @@
     <string name="upload_file">Upload File</string>
     <string name="select_pdf_file">Select PDF File...</string>
     <string name="dashboard">Dashboard</string>
+    <string name="add_job_post">Add Job Post</string>
+    <string name="delete_job_post">Delete Job Post</string>
+    <string name="add_event">Add Event</string>
+    <string name="delete_event">Delete Event</string>
 </resources>

@@ -23,14 +23,73 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <Button
+            android:id="@+id/button_add_job_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="240dp"
+            android:background="#03A9F4"
+            android:onClick="AddJob"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:text="@string/add_job_post"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_add_event_post"
+            android:layout_width="113dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="59dp"
+            android:layout_marginTop="374dp"
+            android:background="#03A9F4"
+            android:onClick="AddJob"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:text="@string/add_event"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_delete_job_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="47dp"
+            android:layout_marginTop="240dp"
+            android:layout_marginEnd="60dp"
+            android:layout_toEndOf="@+id/button_add_job_post"
+            android:background="#BC0603"
+            android:text="@string/delete_job_post"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_delete_event_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="375dp"
+            android:layout_marginEnd="63dp"
+            android:layout_toEndOf="@+id/button_add_job_post"
+            android:background="#BC0603"
+            android:text="@string/delete_event"
+            android:textColor="#FFFFFF" />
+
     </RelativeLayout>
+
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/dash_board_nav_menu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/dash_board_nav_menu"
-        app:menu="@menu/dash_board_sidemenu"
+        android:layout_gravity="end"
         app:headerLayout="@layout/nav_header"
-        android:layout_gravity="start">
+        app:menu="@menu/dash_board_sidemenu">
 
     </com.google.android.material.navigation.NavigationView>
 

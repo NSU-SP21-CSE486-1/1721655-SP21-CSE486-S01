@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.DashPathEffect;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.cpcapp.R;
 import com.example.cpcapp.datasource.SharedPrefManager;
@@ -28,6 +29,7 @@ public class DashBoard extends AppCompatActivity {
         setContentView(R.layout.activity_dash_board);
 
         pref = new SharedPrefManager(DashBoard.this);
+
 
         toolbar = findViewById(R.id.dash_board_toolbar);
         setSupportActionBar(toolbar);
@@ -50,7 +52,7 @@ public class DashBoard extends AppCompatActivity {
                 switch(item.getItemId()){
 
                     case R.id.menu_dash_board: 
-                        startActivity(new Intent(getApplicationContext(),Home.class));
+                        startActivity(new Intent(getApplicationContext(),DashBoard.class));
                         drawerLayout.closeDrawer(GravityCompat.START);
                         finish();
                         break;
@@ -76,5 +78,9 @@ public class DashBoard extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    public void AddJob(View view) {
+
     }
 }
