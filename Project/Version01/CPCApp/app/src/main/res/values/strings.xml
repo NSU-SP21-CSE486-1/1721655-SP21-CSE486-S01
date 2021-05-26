@@ -67,6 +67,8 @@
     <string name="company_recruiter_email">Company Recruiter Email</string>
     <string name="enter_recruiter_email">Enter recruiter email</string>
     <string name="post">Post</string>
+    <string name="job_details">Job Details</string>
+    <string name="apply">Apply</string>
     <string-array name="job_types">
         <item>Internship</item>
         <item>Full-Time</item>
