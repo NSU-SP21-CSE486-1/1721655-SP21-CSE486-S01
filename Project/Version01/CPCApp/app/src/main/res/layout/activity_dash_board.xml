@@ -47,7 +47,6 @@
             android:layout_marginStart="59dp"
             android:layout_marginTop="374dp"
             android:background="#03A9F4"
-            android:onClick="AddJob"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"
             android:text="@string/add_event"

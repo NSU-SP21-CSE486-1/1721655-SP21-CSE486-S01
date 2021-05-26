@@ -89,6 +89,7 @@ public class Profile extends AppCompatActivity {
         arrayList = new ArrayList<>();
         pref = new SharedPrefManager(Profile.this);
         userEmail = pref.getEmail();
+        appViewModel.initStudentData();
         arrayList = appViewModel.getStudentData();
         getUser();
 

@@ -38,7 +38,6 @@ public class AppViewModel extends AndroidViewModel {
     public AppViewModel(@NonNull Application application) {
         super(application);
         appRepository = AppRepository.getInstance();
-        arrayList = appRepository.getStudentData();
         adminData = appRepository.getAdminData();
         firebaseAuth = appRepository.getAuthRef();
 
@@ -67,6 +66,13 @@ public class AppViewModel extends AndroidViewModel {
 
     public DatabaseReference getPdfDbRef(){
         return pdfDbRef;
+    }
+
+    public void initStudentData(){
+        if(arrayList != null){
+            return;
+        }
+        arrayList = appRepository.getStudentData();
     }
 
     public ArrayList<StudentInfoAPI> getStudentData(){

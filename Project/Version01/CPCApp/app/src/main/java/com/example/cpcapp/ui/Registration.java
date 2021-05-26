@@ -76,7 +76,7 @@ public class Registration extends AppCompatActivity {
 
 
    public void checkData(){
-
+    appViewModel.initStudentData();
     arrayList = appViewModel.getStudentData();
 
    }

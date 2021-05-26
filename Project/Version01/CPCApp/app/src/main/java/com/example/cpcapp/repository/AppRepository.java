@@ -95,6 +95,7 @@ public class AppRepository {
         return mAdminData;
    }
 
+
    public MutableLiveData<ArrayList<JobPost>> getJobPostLiveData(){
         if(mJobPostList.size() == 0){
             getJobPostData();
@@ -122,24 +123,30 @@ public class AppRepository {
         });
    }
 
+    public void addStudentData(){
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    mAllStudent.clear();
+                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        mAllStudent.add(dataSnapshot.getValue(StudentInfoAPI.class));
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
    public ArrayList<StudentInfoAPI> getStudentData(){
-       dbRef.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-               if(snapshot.exists()) {
-                   mAllStudent.clear();
-                   for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                       mAllStudent.add(dataSnapshot.getValue(StudentInfoAPI.class));
-
-                   }
-               }
-           }
-
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
-
-           }
-       });
+       if(mAllStudent.size() == 0){
+           addStudentData();
+       }
 
        return mAllStudent;
    }
