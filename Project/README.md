@@ -100,7 +100,23 @@
 
 </p><br>
 
+<h2 id=data>Data Management</h2><br>
+<p text-align: left>
+ Firebase realtime database is used for databse storage and firebase storag is used to store PDF or image files and for authentication firebase authentication is used. Only the user session related data and information is stored locally using Shared Preference. 
+</p><br>
 
+<h2 id=design>Design Pattern</h2><br>
+<p text-align: left>
+  The Model-View-ViewModel (MVVM) pattern is used to build this app as android supports this architecture. I also used the singleton pattern in the app repository and observer pattern using livedata in recyclerview.   
+</p><br>
+
+<h2 id=road>Roadblocks</h2><br>
+
+<p text-align: left>
+Gradle Problem: At the initial stage of developement I encountered a gradle build related problem with the app and had to start from the very beginning.
+
+Andoid Library: As android is shifting to androidx libraries, a lot of old libraries and funtions are deprecated, and since lot of tutorials are with the deprecated library functions, so it was a bit touugh for me to find the alternatives.
+</p><br>
 
 </p>
 
