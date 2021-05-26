@@ -2,7 +2,11 @@ package com.example.cpcapp.repository;
 
 
 
+import android.app.job.JobInfo;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.cpcapp.datasource.AdminData;
@@ -32,14 +36,20 @@ public class AppRepository {
     private final DatabaseReference dbRef,adminDbRef,jobPostDbRef;
     private final DatabaseReference pdfDbRef;
     private final StorageReference storageReference,jobDescriptionRef;
+    private final MutableLiveData<ArrayList<JobPost>> jobPostLiveData;
 
 
     private final ArrayList<AdminData> mAdminData;
     private final ArrayList<StudentInfoAPI> mAllStudent;
+    private final ArrayList<JobPost> mJobPostList;
 
     public AppRepository(){
         mAllStudent = new ArrayList<>();
         mAdminData = new ArrayList<>();
+        mJobPostList = new ArrayList<>();
+
+        jobPostLiveData = new MutableLiveData<>();
+
         firebaseRef = FirebaseDatabase.getInstance();
         adminDbRef = firebaseRef.getReference("admin");
         dbRef = firebaseRef.getReference("students");
@@ -60,7 +70,7 @@ public class AppRepository {
     }
 
 
-    public DatabaseReference getDbRef(){ return dbRef; }
+
     public DatabaseReference getPdfDbRef(){return pdfDbRef;}
     public FirebaseAuth getAuthRef(){return firebaseAuth;}
 
@@ -83,6 +93,33 @@ public class AppRepository {
         });
 
         return mAdminData;
+   }
+
+   public MutableLiveData<ArrayList<JobPost>> getJobPostLiveData(){
+        if(mJobPostList.size() == 0){
+            getJobPostData();
+        }
+        jobPostLiveData.setValue(mJobPostList);
+        return jobPostLiveData;
+    }
+   private void getJobPostData(){
+        jobPostDbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    mJobPostList.clear();
+                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        mJobPostList.add(dataSnapshot.getValue(JobPost.class));
+                    }
+                    jobPostLiveData.setValue(mJobPostList);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
    }
 
    public ArrayList<StudentInfoAPI> getStudentData(){
@@ -112,17 +149,15 @@ public class AppRepository {
         return storageReference.child("resume"+System.currentTimeMillis()+".pdf");
     }
     public StorageReference storeRef(){
-        return jobDescriptionRef;
+        return jobDescriptionRef.child("job_description"+System.currentTimeMillis());
     }
     public void insertStudent(StudentInfoAPI studentInfo){
         dbRef.child(studentInfo.getStudent_id()).setValue(studentInfo);
     }
 
     public void insertJobPost(JobPost jobPost){
-        jobPostDbRef.child(jobPost.getApplication_date()).setValue(jobPost);
+        jobPostDbRef.child(String.valueOf(System.currentTimeMillis())).setValue(jobPost);
     }
-
-
 
 
 

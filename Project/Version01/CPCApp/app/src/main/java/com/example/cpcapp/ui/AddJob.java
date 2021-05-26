@@ -130,6 +130,30 @@ public class AddJob extends AppCompatActivity implements AdapterView.OnItemSelec
             job_description.setText(data.getDataString().substring(data
                     .getDataString().lastIndexOf("/") + 1));
             dataUri = data.getData();
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("File is uploading....");
+            progressDialog.show();
+
+            storageReference.putFile(dataUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                    while(!uriTask.isComplete());
+                    uri = uriTask.getResult();
+
+
+                    Toast.makeText(AddJob.this, "Uploaded.", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    double progress = (100.0* snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
+                    progressDialog.setMessage("File Uploading.." + (int) progress + "%");
+
+                }
+            });
 
 
         }
@@ -137,35 +161,14 @@ public class AddJob extends AppCompatActivity implements AdapterView.OnItemSelec
 
 
     public void Post(View view) {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("File is uploading....");
-        progressDialog.show();
 
-        storageReference.putFile(dataUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while(!uriTask.isComplete());
-                uri = uriTask.getResult();
-
-
-                Toast.makeText(AddJob.this, "Uploaded.", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
-
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                double progress = (100.0* snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
-                progressDialog.setMessage("File Uploading.." + (int) progress + "%");
-
-            }
-        });
 
         JobPost jobPost = new JobPost(company_name.getText().toString(),position_name.getText().toString(),jobsTypeSpinner.getSelectedItem().toString(),
                 salary_range.getText().toString(),uri.toString(),application_date.getText().toString(),recruiter_email.getText().toString());
 
 
         appViewModel.insertJobPost(jobPost);
+
+        Toast.makeText(getApplicationContext(),"Job Posted",Toast.LENGTH_SHORT).show();
     }
 }

@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toolbar;
 
 import com.example.cpcapp.R;
@@ -58,6 +59,7 @@ public class Home extends AppCompatActivity {
                         break;
 
                     case R.id.menu_notice_board:
+                        startActivity(new Intent(getApplicationContext(),NoticeBoard.class));
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
@@ -79,5 +81,9 @@ public class Home extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    public void OpenNoticeBoard(View view) {
+        startActivity(new Intent(getApplicationContext(),NoticeBoard.class));
     }
 }

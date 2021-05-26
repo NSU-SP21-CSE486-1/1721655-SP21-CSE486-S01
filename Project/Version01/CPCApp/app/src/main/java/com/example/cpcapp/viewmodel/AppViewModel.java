@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.cpcapp.datasource.AdminData;
@@ -21,10 +22,16 @@ import java.util.List;
 public class AppViewModel extends AndroidViewModel {
 
     private final AppRepository appRepository;
-    private DatabaseReference dbRef,pdfDbRef,jobPostDbRef;
+    private DatabaseReference pdfDbRef;
+
+    private MutableLiveData<ArrayList<JobPost>> jobPostLiveData;
+
     private ArrayList<StudentInfoAPI> arrayList;
     private ArrayList<AdminData> adminData;
+
+
     private FirebaseAuth firebaseAuth;
+
     private StorageReference storageReference;
     private StorageReference jobDescriptionRef;
 
@@ -39,18 +46,17 @@ public class AppViewModel extends AndroidViewModel {
     }
 
 
-    public void initDbRef(){
-        if(dbRef != null){
+    public void initJobPostLiveData(){
+        if(jobPostLiveData != null){
             return;
         }
-        dbRef = appRepository.getDbRef();
-
+        jobPostLiveData = appRepository.getJobPostLiveData();
+    }
+    public LiveData<ArrayList<JobPost>> getJobPostLiveData(){
+        return jobPostLiveData;
     }
 
-    public DatabaseReference getDbRef(){
 
-        return dbRef;
-    }
 
     public void initPdfDbRef(){
         if(pdfDbRef != null){
@@ -71,6 +77,7 @@ public class AppViewModel extends AndroidViewModel {
     public ArrayList<AdminData> getAdminData(){
         return adminData;
     }
+
 
     public void initStorageRef(){
         if(storageReference != null){

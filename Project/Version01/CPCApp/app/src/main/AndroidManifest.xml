@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CPCApp">
-        <activity android:name=".ui.AddJob"></activity>
+        <activity android:name=".ui.NoticeBoard"></activity>
+        <activity android:name=".ui.AddJob" />
         <activity android:name=".ui.DashBoard" />
         <activity android:name=".ui.Profile" />
         <activity android:name=".ui.Login" />
