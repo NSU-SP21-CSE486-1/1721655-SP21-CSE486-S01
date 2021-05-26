@@ -2,16 +2,19 @@ package com.example.cpcapp.adapters;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cpcapp.R;
 import com.example.cpcapp.datasource.JobPost;
+import com.example.cpcapp.ui.JobPostDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,16 @@ public class NoticeBoardAdapter extends RecyclerView.Adapter<NoticeBoardAdapter.
     public NoticeBoardHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = layoutInflater.inflate(R.layout.job_board_view,parent,false);
         NoticeBoardHolder noticeBoardHolder = new NoticeBoardHolder(itemView);
+
+        noticeBoardHolder.jobCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, JobPostDetails.class);
+
+                mContext.startActivity(intent);
+            }
+        });
+
         return noticeBoardHolder;
     }
 
@@ -59,9 +72,11 @@ public class NoticeBoardAdapter extends RecyclerView.Adapter<NoticeBoardAdapter.
     public class NoticeBoardHolder extends RecyclerView.ViewHolder {
 
         private TextView company_name,application_date;
+        private CardView jobCard;
 
         public NoticeBoardHolder(@NonNull View itemView) {
             super(itemView);
+            jobCard = itemView.findViewById(R.id.job_cardView);
             company_name = itemView.findViewById(R.id.job_view_company_name_textView);
             application_date = itemView.findViewById(R.id.job_view_application_date_textView);
         }
